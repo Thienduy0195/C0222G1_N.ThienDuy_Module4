@@ -1,6 +1,7 @@
 package com.dictionary.controller;
 
-import com.dictionary.service.Dictionary;
+import com.dictionary.service.DictionaryService;
+import com.dictionary.service.IDictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class DictionaryController {
 
     @Autowired
-    Dictionary dictionary;
+    IDictionaryService dictionary;
 
     @GetMapping
     public String dictionary() {
@@ -21,9 +22,9 @@ public class DictionaryController {
     }
 
     @PostMapping("/translate")
-    public String transfer(@RequestParam String english,
+    public String translate(@RequestParam String english,
                            Model model) {
-        String vietnamese = dictionary.getWord(english);
+        String vietnamese = dictionary.translate(english);
         model.addAttribute("english", english);
         model.addAttribute("vietnamese", vietnamese);
         return "result";
