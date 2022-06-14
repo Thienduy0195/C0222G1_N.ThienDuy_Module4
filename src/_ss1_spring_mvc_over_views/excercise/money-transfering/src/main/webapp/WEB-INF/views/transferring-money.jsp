@@ -10,12 +10,13 @@
 <head>
     <title>TRANSFERRING MONEY</title>
     <style>
-        form{
+        form {
             background-color: orangered;
             width: fit-content;
-            margin: 0 auto;
+            margin: 5em auto;
         }
-        th{
+
+        th {
             text-align: left;
             color: #ffffff;
         }
@@ -29,14 +30,14 @@
             <th><input type="number" name="usd" value="${usd}"></th>
         </tr>
         <tr>
-            <th>RESULT: </th>
+            <th>RESULT:</th>
             <td>
                 <p style="color: #ffffff">${usdToVnd}</p>
             </td>
         </tr>
     </table>
     <div>
-            <input type="submit" value="EXCHANGE">
+        <input type="submit" value="EXCHANGE">
     </div>
 </form>
 </body>

@@ -8,35 +8,56 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-  <title>DICTIONARY</title>
-  <style>
-    form{
-      background-color: orangered;
-      width: fit-content;
-      margin: 0 auto;
-    }
-    th{
-      text-align: left;
-      color: #ffffff;
-    }
-  </style>
+    <title>DICTIONARY</title>
+    <style>
+        form {
+            background-color: orangered;
+            width: 30%;
+            margin: 5em auto;
+        }
+
+        th {
+            text-align: left;
+            color: #ffffff;
+            font-size: 2em;
+        }
+
+        td {
+            font-size: 2em;
+        }
+
+        .head {
+            font-size: 1.5em;
+            color: white;
+            background-color: brown;
+            padding: 2px 0;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
+
 <form action="/translate" method="post">
-  <table>
-    <tr>
-      <th>English:</th>
-      <th><input type="text" name="english"></th>
-    </tr>
-    <tr>
-      <th>Vietnamese: </th>
-      <td>
-        <p style="color: #ffffff"></p>
-      </td>
-    </tr>
-  </table>
+    <div class="head">
+        <p>OXFORD DICTIONARY</p>
+    </div>
+    <table>
+        <tr>
+            <th>English:</th>
+            <th><input type="text" name="english"></th>
+        </tr>
+        <tr>
+            <th>Vietnamese:</th>
+            <td>
+                <p style="color: #ffffff"></p>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <input type="submit" value="TRANSLATE">
+    </div>
   <div>
-    <input type="submit" value="TRANSLATE">
+    <p style="color: white; background-color: brown">@Oxford Learner's Dictionaries</p>
   </div>
 </form>
 </body>
