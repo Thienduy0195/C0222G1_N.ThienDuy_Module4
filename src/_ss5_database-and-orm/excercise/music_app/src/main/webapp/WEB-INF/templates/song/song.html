@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<h3>LIST OF HIT SONG </h3>
+<nav class="navbar navbar-expand-lg p-2 my-0 col ">
+    <p class="btn btn-dark my-2 my-sm-0 add-new">
+        <a style="color: white" th:href="@{/song/create}">
+            ADD NEW SONG
+        </a>
+    </p>
+    <form class="form-inline my-2 my-lg-0 search" th:action="@{/song/search}" th:object="${song}" method="get">
+        <input class="form-control mr-sm-2" placeholder="Enter the song's name" type="text"
+               th:field="*{songName}" >
+        <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+<table id = "songs">
+    <thead>
+    <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Artist
+        </th>
+        <th>Type</th>
+        <th>Path</th>
+        <th>Update</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row,rowStat : ${songList}">
+        <td th:text="${row.getSongId()}"></td>
+        <td th:text="${row.getSongName()}"></td>
+        <td th:text="${row.getArtist()}"></td>
+        <td th:text="${row.getSongType()}"></td>
+        <td th:text="${row.getSongPath()}"></td>
+        <td><a class="btn btn-primary" th:href="@{/song/{id}/edit(id=${row.getSongId()})}">EDIT</a></td>
+        <td><a class="btn btn-danger" th:href="@{/song/{id}/delete(id=${row.getSongId()})}">DELETE</a></td>
+        <td><a class="btn btn-success"  th:href="@{/song/{id}/view(id=${row.getSongId()})}">VIEW</a></td>
+    </tr>
+    </tbody>
+</table>
+<div><p th:text="${success}" style="color: green; font-size: 1.5em"></p></div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
