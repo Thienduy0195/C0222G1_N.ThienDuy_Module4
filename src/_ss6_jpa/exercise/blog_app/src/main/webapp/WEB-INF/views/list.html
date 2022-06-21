@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<h3>BLOG OF MONTH </h3>
+<nav class="navbar navbar-expand-lg p-2 my-0 col ">
+    <p class="btn btn-dark my-2 my-sm-0 add-new">
+        <a style="color: white" th:href="@{/blog/create}">
+            ADD NEW BLOG
+        </a>
+    </p>
+    <form class="form-inline my-2 my-lg-0 search" th:action="@{/blog/search}" th:object="${blog}" method="get">
+        <input class="form-control mr-sm-2" placeholder="Enter the blog's name" type="text"
+               th:field="*{blogName}" >
+        <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+<table id = "songs">
+    <thead>
+    <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Description</th>
+        <th>Content</th>
+        <th>Create date</th>
+        <th>Update</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row,rowStat : ${blogList}">
+        <td th:text="${row.getId()}"></td>
+        <td th:text="${row.getBlogName()}"></td>
+        <td th:text="${row.getAuthor()}"></td>
+        <td th:text="${row.getBlogDescription()}"></td>
+        <td th:text="${row.getContent()}"></td>
+        <td th:text="${row.getCreateDay()}"></td>
+        <td><a class="btn btn-primary" th:href="@{/blog/{id}/edit(id=${row.getId()})}">EDIT</a></td>
+        <td><a class="btn btn-danger" th:href="@{/blog/{id}/delete(id=${row.getId()})}">DELETE</a></td>
+        <td><a class="btn btn-success"  th:href="@{/blog/{id}/view(id=${row.getId()})}">VIEW</a></td>
+    </tr>
+    </tbody>
+</table>
+<div><p th:text="${success}" style="color: green; font-size: 1.5em"></p></div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
