@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:replace="~{common_student::headerStudent}">
+    <div style="background-color: blue" th:fragment="headerStudent">
+        <p>HEADER</p>
+        <p>-------------------------------------------</p>
+    </div>
+</div>
+<a href="/create">Create Student</a>
+<table width="700px" border="1">
+    <tr>
+        <th>No</th>
+        <th>Code Student</th>
+        <th>Name Student</th>
+        <th>Point Student</th>
+        <th>Gender Student</th>
+        <th>Classroom</th>
+        <th>Detail</th>
+    </tr>
+    <tr th:each="student,loop : ${listStudent}">
+        <td th:text="${loop.count}"></td>
+        <td th:text="${student.codeStudent}"></td>
+        <td th:text="${student.nameStudent}"></td>
+        <td th:text="${student.point}"></td>
+        <td>
+            <p th:if="${student.gender == 0}">Male</p>
+            <p th:if="${student.gender==1}">Female</p>
+            <p th:if="${student.gender==null}">Other</p>
+        </td>
+        <td th:text="${student.classroom.nameClass}"></td>
+        <td><a th:href="@{/detail/{codeStudent}(codeStudent = ${student.codeStudent})}">Detail</a> </td>
+    </tr>
+</table>
+<div>
+    <span>
+        <a th:if = "${listStudent.hasPrevious()}" th:href="@{/list(page = ${listStudent.number - 1})}">Previous</a>
+    </span>
+    <span th:each="pageNo: ${#numbers.sequence(0,listStudent.totalPages - 1)}">
+        <a th:href="@{/list(page = ${pageNo})}" th:text="${pageNo}"></a>
+    </span>
+    <span>
+        <a th:if = "${listStudent.hasNext()}" th:href="@{/list(page = ${listStudent.number +1})}">Next</a>
+    </span>
+</div>
+<div th:replace="~{common_student::footerStudent}"></div>
+</body>
+</html>

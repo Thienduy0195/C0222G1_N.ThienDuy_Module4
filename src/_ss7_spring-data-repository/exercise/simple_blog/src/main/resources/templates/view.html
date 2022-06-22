@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<header th:replace="/layout :: header_nav"></header>
+<div class="row py-5" style="margin-top: 59px;">
+    <div class="col-7 mx-auto">
+        <form th:object="${blog}"
+              method="POST" novalidate="novalidate">
+            <h2 class="text-center" th:text="*{name}"></h2>
+            <div class="container mx-auto shadow-lg p-3 mb-5 bg-white rounded-lg">
+                <div class="form-group">
+                    <label>Author: <span th:text="*{author}"></span></label>
+                </div>
+                <div class="form-group">
+                    <label>Category: <span th:text="*{category.name}"></span></label>
+                </div>
+                <div class="form-group">
+                    <p th:text="*{content}"></p>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-6 mx-auto">
+                        <a class="btn btn-outline-warning" role="button" th:href="@{/{id}/edit(id=*{id})}">
+                            edit
+                        </a>
+                    </div>
+                    <div class="col-sm-6 mx-auto">
+                        <button type="button"
+                                class="btn btn-danger mx-1"
+                                data-mdb-toggle="modal" data-mdb-target="#deleteModal"
+                                th:attr="onclick=|deleteProduct(*{id},'*{name}')|"
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Blog</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Do you really want to delete blog
+                    <span class="text-danger font-weight-bold" id="nameDelete"></span>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <div class="mx-auto row">
+                    <form th:action="@{/delete}" method="post">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="id" id="idDelete">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="/layout :: script"></th:block>
+</html>
+
+<script>
+    function deleteProduct(id, name) {
+        document.getElementById("idDelete").value = id;
+        document.getElementById("nameDelete").innerText = " " + name + "?";
+    }
+</script>
