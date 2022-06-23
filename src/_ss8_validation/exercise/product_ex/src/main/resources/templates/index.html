@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<h3>PRODUCT MANAGEMENT</h3>
+<nav class="navbar navbar-expand-lg p-2 my-0 col ">
+    <p class="btn btn-dark my-2 my-sm-0 add-new">
+        <a style="color: white" th:href="@{/product/create}">
+            ADD NEW PRODUCT
+        </a>
+    </p>
+    <form class="form-inline my-2 my-lg-0 search" th:action="@{/product/search}" th:object="${product}" method="get">
+        <input class="form-control mr-sm-2" placeholder="Enter product's name" type="text"
+               th:field="*{productName}" >
+        <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+<table id = "products">
+    <thead>
+    <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Firm</th>
+        <th>Update</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row,rowStat : ${productList}">
+        <td th:text="${row.getProductId()}"></td>
+        <td th:text="${row.getProductName()}"></td>
+        <td th:text="${row.getProductPrice()}"></td>
+        <td th:text="${row.getProductDescription()}"></td>
+        <td th:text="${row.getProductFirm()}"></td>
+        <td><a class="btn btn-primary" th:href="@{/product/{id}/edit(id=${row.getProductId()})}">EDIT</a></td>
+        <td><a class="btn btn-danger" th:href="@{/product/{id}/delete(id=${row.getProductId()})}">DELETE</a></td>
+        <td><a class="btn btn-success"  th:href="@{/product/{id}/view(id=${row.getProductId()})}">VIEW</a></td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <span>
+        <a th:if = "${productList.hasPrevious()}" th:href="@{/product(page = ${productList.number - 1})}">Previous</a>
+    </span>
+    <span th:each="pageNo: ${#numbers.sequence(0,productList.totalPages - 1)}">
+        <a th:href="@{/blog(page = ${pageNo})}" th:text="${pageNo}"></a>
+    </span>
+    <span>
+        <a th:if = "${productList.hasNext()}" th:href="@{/product(page = ${productList.number +1})}">Next</a>
+    </span>
+</div>
+<div><p th:text="${success}" style="color: green; font-size: 1.5em"></p></div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

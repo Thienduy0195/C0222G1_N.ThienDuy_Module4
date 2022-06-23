@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>CREATING NEW SONG</h3>
+<p>
+    <a th:href="@{/song}">
+        Back to Song list
+    </a>
+</p>
+<div id="form">
+    <form th:action="@{/song/save}" th:object="${song}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{songId}"/>
+        <div>
+            <label>SONG NAME: </label>
+            <input type="text" th:field="*{songName}"/>
+            <p style="color: red" th:if="${#fields.hasErrors('songName')}" th:errors="*{songName}"></p>
+
+        </div>
+        <div>
+            <label>THE ARTIST: </label>
+            <input type="text" th:field="*{artist}"/>
+            <p style="color: red" th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}"></p>
+        </div>
+        <div>
+            <label>TYPE OF SONG: </label>
+            <input type="text" th:field="*{songType}"/>
+            <p style="color: red" th:if="${#fields.hasErrors('songType')}" th:errors="*{songType}"></p>
+        </div>
+        <div>
+            <label>SONG PATH: </label>
+            <input type="text" th:field="*{songPath}"/>
+        </div>
+        <input type="submit" value="Save"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

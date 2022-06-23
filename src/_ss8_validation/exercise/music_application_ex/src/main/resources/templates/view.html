@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>VIEW SONG</h3>
+<p>
+    <a th:href="@{/song}">
+        <button class="btn btn-primary">BACK</button>
+    </a>
+</p>
+<div id="detail">
+    <table>
+        <tr>
+            <td>
+                <label style="font-weight: bold">SONG NAME:</label>
+            </td>
+            <td>
+                <label th:text="${song.songName}"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label style="font-weight: bold">ARTIST:</label>
+            </td>
+            <td>
+                <label th:text="${song.artist}"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label style="font-weight: bold">SONG TYPE:</label>
+            </td>
+            <td>
+                <label th:text="${song.songType}"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label style="font-weight: bold">SONG PATH:</label>
+            </td>
+            <td>
+                <label th:text="${song.songPath}"></label>
+            </td>
+        </tr>
+    </table>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
