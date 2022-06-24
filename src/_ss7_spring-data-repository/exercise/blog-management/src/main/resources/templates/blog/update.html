@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/layout :: head"></head>
+<head th:replace="/blog/layout :: head"></head>
 <body>
-<h3>DELETING BLOG</h3>
+<h3>UPDATING BLOG</h3>
 <p>
-    <a th:href="@{/blog}">
-        Back to blog list
+    <a class="btn btn-primary" th:href="@{/blog}">
+        BACK TO BLOG
     </a>
 </p>
 <div id="form">
-    <form action="#" th:action="@{/blog/delete}" th:object="${blog}"
+    <form action="#" th:action="@{/blog/update}" th:object="${blog}"
           method="POST" novalidate="novalidate">
         <input type="hidden" th:field="*{id}"/>
         <div>
@@ -30,11 +30,19 @@
         </div>
         <div>
             <label>CREATE DATE</label>
-            <input type="text" th:field="*{createDay}"/>
+            <input type="date" th:field="*{createDay}"/>
         </div>
-        <input type="submit" value="Remove"/>
+        <div>
+            <label>CATEGORY: </label>
+            <select th:field="*{category}">
+                <option th:each="category: ${categoryList}" th:value="${category.id}" th:text="${category.name}">
+
+                </option>
+            </select>
+        </div>
+        <input type="submit" value="Edit"/>
     </form>
 </div>
-<footer th:replace="/layout :: footer"></footer>
+<footer th:replace="/blog/layout :: footer"></footer>
 </body>
 </html>

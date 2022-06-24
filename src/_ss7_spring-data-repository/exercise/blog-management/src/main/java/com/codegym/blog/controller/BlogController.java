@@ -32,14 +32,14 @@ public class BlogController {
         Page<Blog> blogList = blogService.findAllBlogPage(PageRequest.of(page, 3, sort));
         model.addAttribute("blog", new Blog());
         model.addAttribute("blogList", blogList);
-        return "list";
+        return "blog/list";
     }
 
     @GetMapping("/create")
     public String showCreatePage(Model model) {
         model.addAttribute("blog", new Blog());
         model.addAttribute("categoryList", categoryService.findAll());
-        return "create";
+        return "blog/create";
     }
 
     @PostMapping("/save")
@@ -53,7 +53,7 @@ public class BlogController {
     public String edit(@PathVariable Long id, Model model) {
         model.addAttribute("categoryList", categoryService.findAll());
         model.addAttribute("blog", blogService.findById(id));
-        return "update";
+        return "blog/update";
     }
 
     @PostMapping("/update")
@@ -65,7 +65,7 @@ public class BlogController {
 
     @GetMapping("/{id}/view")
     public ModelAndView showInformation(@PathVariable Long id) {
-        ModelAndView modelAndView = new ModelAndView("info");
+        ModelAndView modelAndView = new ModelAndView("blog/info");
         Blog blog = blogService.findById(id);
         modelAndView.addObject("blog", blog);
         return modelAndView;
@@ -79,13 +79,13 @@ public class BlogController {
         pageable = PageRequest.of(page, 10, sort);
         Page<Blog> blogList = blogService.searchByBlogName(blog.getBlogName(), pageable);
         model.addAttribute("blogList", blogList);
-        return "list";
+        return "blog/list";
     }
 
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable Long id, Model model) {
         model.addAttribute("blog", blogService.findById(id));
-        return "/delete";
+        return "blog/delete";
     }
 
     @PostMapping("/delete")

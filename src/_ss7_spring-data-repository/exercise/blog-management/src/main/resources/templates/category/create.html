@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/blog/layout :: head"></head>
+<body>
+<h3>CREATING NEW BLOG</h3>
+<p>
+    <a class="btn btn-primary" th:href="@{/blog}">
+        BACK TO BLOG
+    </a>
+</p>
+<div id="form">
+    <form th:action="@{/blog/save-category}" th:object="${category}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>CATEGORY NAME: </label>
+            <input type="text" th:field="*{name}"/>
+        </div>
+        <input type="submit" value="Save"/>
+    </form>
+</div>
+<footer th:replace="/blog/layout :: footer"></footer>
+</body>
+</html>

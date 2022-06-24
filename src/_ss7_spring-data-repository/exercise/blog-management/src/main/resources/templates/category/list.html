@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/blog/layout :: head">
+</head>
+<body>
+<h3>CATEGORY LIST</h3>
+
+<nav class="navbar navbar-expand-lg p-2 my-0 col ">
+    <p>
+        <a class="btn btn-primary" th:href="@{/blog}">
+            BACK TO BLOG
+        </a>
+    </p>
+    <p class="btn btn-dark my-2 my-sm-0 add-new">
+        <a style="color: white" th:href="@{/blog/create-category}">
+            ADD NEW CATEGORY
+        </a>
+    </p>
+<!--    <form class="form-inline my-2 my-lg-0 search" th:action="@{/blog/search}" th:object="${blog}" method="get">-->
+<!--        <input class="form-control mr-sm-2" placeholder="Enter the blog's name" type="text"-->
+<!--               th:field="*{blogName}" >-->
+<!--        <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>-->
+<!--    </form>-->
+</nav>
+<table id = "songs">
+    <thead>
+    <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Update</th>
+        <th>Delete</th>
+        <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row,rowStat : ${categoryList}">
+        <td th:text="${row.getId()}"></td>
+        <td th:text="${row.getName()}"></td>
+        <td><a class="btn btn-primary" th:href="@{/blog/category/{id}/edit(id=${row.getId()})}">EDIT</a></td>
+        <td><a class="btn btn-danger" th:href="@{/blog/category/{id}/delete(id=${row.getId()})}">DELETE</a></td>
+        <td><a class="btn btn-success"  th:href="@{/blog/category/{id}/view(id=${row.getId()})}">VIEW</a></td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <span>
+        <a th:if = "${categoryList.hasPrevious()}" th:href="@{/blog/category(page = ${categoryList.number - 1})}">Previous</a>
+    </span>
+    <span th:each="pageNo: ${#numbers.sequence(0,categoryList.totalPages - 1)}">
+        <a th:href="@{/blog/category(page = ${pageNo})}" th:text="${pageNo}"></a>
+    </span>
+    <span>
+        <a th:if = "${categoryList.hasNext()}" th:href="@{/blog/category(page = ${categoryList.number +1})}">Next</a>
+    </span>
+</div>
+<div><p th:text="${success}" style="color: green; font-size: 1.5em"></p></div>
+<footer th:replace="/blog/layout :: footer"></footer>
+</body>
+</html>

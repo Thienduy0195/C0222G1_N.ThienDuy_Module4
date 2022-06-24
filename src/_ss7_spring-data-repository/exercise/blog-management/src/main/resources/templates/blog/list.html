@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="/layout :: head">
+<head th:replace="/blog/layout :: head">
 </head>
 <body>
 <h3>BLOG OF MONTH </h3>
@@ -8,6 +8,11 @@
     <p class="btn btn-dark my-2 my-sm-0 add-new">
         <a style="color: white" th:href="@{/blog/create}">
             ADD NEW BLOG
+        </a>
+    </p>
+    <p class="btn btn-dark my-2 my-sm-0 add-new">
+        <a style="color: white" th:href="@{/blog/category}">
+            LIST OF CATEGORY
         </a>
     </p>
     <form class="form-inline my-2 my-lg-0 search" th:action="@{/blog/search}" th:object="${blog}" method="get">
@@ -58,6 +63,6 @@
     </span>
 </div>
 <div><p th:text="${success}" style="color: green; font-size: 1.5em"></p></div>
-<footer th:replace="/layout :: footer"></footer>
+<footer th:replace="/blog/layout :: footer"></footer>
 </body>
 </html>
