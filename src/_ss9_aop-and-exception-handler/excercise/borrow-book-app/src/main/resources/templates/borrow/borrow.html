@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>BORROW BOOK</h3>
+<p>
+    <a th:href="@{/book}">
+        BACK TO BOOKS LIST
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/book/borrow}" th:object="${book}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label>BOOK NAME</label>
+            <input type="text" th:field="*{nameBooks}" readonly/>
+        </div>
+        <div>
+                <label>BOOK AUTHOR</label>
+            <input type="email" th:field="*{author}" readonly/>
+        </div>
+        <div>
+            <label>BOOK PRICE</label>
+            <input type="email" th:field="*{price}" readonly/>
+        </div>
+        <div>
+            <label>PUBLISHING YEAR</label>
+            <input type="text" th:field="*{publishYear}" readonly/>
+        </div>
+        <div>
+            <label>REMAINING AMOUNT</label>
+            <input type="text" th:field="*{quantity}" readonly/>
+        </div>
+        <input type="submit" value="CONTINUE"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

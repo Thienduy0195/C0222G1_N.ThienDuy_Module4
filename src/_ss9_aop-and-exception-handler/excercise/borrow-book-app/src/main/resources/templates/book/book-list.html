@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<h3>PRODUCT MANAGEMENT</h3>
+<nav class="navbar navbar-expand-lg p-2 my-0 col ">
+    <p class="btn btn-dark my-2 my-sm-0 add-new">
+        <a style="color: white" th:href="@{/book/create}">
+            ADD NEW BOOK
+        </a>
+    </p>
+    <form class="form-inline my-2 my-lg-0 search" th:action="@{/book/search}" th:object="${book}" method="get">
+        <input class="form-control mr-sm-2" placeholder="Enter book's name" type="text"
+               th:field="*{nameBooks}" >
+        <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+<table id = "products">
+    <thead>
+    <tr>
+        <th>No.</th>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Publish Year</th>
+        <th>Borrow</th>
+        <th>Give Back</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row,rowStat : ${bookList}">
+        <td th:text="${row.id}"></td>
+        <td th:text="${row.nameBooks}"></td>
+        <td th:text="${row.author}"></td>
+        <td th:text="${row.price}"></td>
+        <td th:text="${row.quantity}"></td>
+        <td th:text="${row.publishYear}"></td>
+        <td>
+            <a class="btn btn-primary" th:href="@{/book/goborrow/(id=${row.id})}">BORROW</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" th:href="@{/book/return-form}">RETURN</a>
+        </td>
+
+    </tr>
+    </tbody>
+</table>
+<div>
+    <span>
+        <a th:if = "${bookList.hasPrevious()}" th:href="@{/book(page = ${bookList.number - 1})}">Previous</a>
+    </span>
+    <span th:each="pageNo: ${#numbers.sequence(0,bookList.totalPages - 1)}">
+        <a th:href="@{/book(page = ${pageNo})}" th:text="${pageNo}"></a>
+    </span>
+    <span>
+        <a th:if = "${bookList.hasNext()}" th:href="@{/book(page = ${bookList.number +1})}">Next</a>
+    </span>
+</div>
+<div><p th:text="${success}" style="color: green; font-size: 1.5em"></p></div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>

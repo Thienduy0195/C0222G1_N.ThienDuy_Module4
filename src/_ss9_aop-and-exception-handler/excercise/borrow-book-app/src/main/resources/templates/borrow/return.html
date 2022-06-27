@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!--    <th:block th:replace="layout :: link-md-boostrap-css"></th:block>-->
+</head>
+<body>
+<div class="container">
+    <!--    <th:block th:replace="layout :: header"></th:block>-->
+    <form th:action="@{/book/return}"
+          method="POST" class="form-control">
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <input type="text" id="formControlDefault" class="form-control" name="bookCode"/>
+                    <label class="form-label" for="formControlDefault">book code</label>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">GIVE BACK</button>
+    </form>
+    <!--    <th:block th:replace="layout :: footer"></th:block>-->
+</div>
+
+<!--<th:block th:replace="layout :: link-md-boostrap-js"></th:block>-->
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
+<body>
+<h3>ADD NEW BOOK</h3>
+<p>
+    <a th:href="@{/templates/book}">
+        BACK TO BOOK LIST
+    </a>
+</p>
+<div id="form">
+    <form th:action="@{/book/save}" th:object="${book}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div>
+            <label style="font-weight: bold">BOOK NAME: </label>
+            <input type="text" th:field="*{nameBooks}"/>
+            <p style="color: red" th:if="${#fields.hasErrors('nameBooks')}" th:errors="*{nameBooks}"></p>
+        </div>
+        <div>
+            <label>BOOK AUTHOR: </label>
+            <input type="text" th:field="*{author}"/>
+<!--            <p style="color: red"  th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></p>-->
+        </div>
+        <div>
+            <label>BOOK PRICE: </label>
+            <input type="text" th:field="*{price}"/>
+                        <p style="color: red"  th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+        </div>
+        <div>
+            <label>BOOK QUANTITY: </label>
+            <input type="text" th:field="*{quantity}"/>
+            <p style="color: red"  th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></p>
+        </div>
+        <div>
+            <label>PRODUCT DESCRIPTION: </label>
+            <input type="date" th:field="*{publishYear}"/>
+        </div>
+        <input type="submit" value="Save"/>
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
