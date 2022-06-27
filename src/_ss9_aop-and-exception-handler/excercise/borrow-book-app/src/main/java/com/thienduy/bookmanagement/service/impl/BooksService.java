@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.sound.midi.MidiDevice;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -33,6 +35,11 @@ public class BooksService implements IBooksService {
 
     @Override
     public void save(Book book) {
+        LocalDate now;
+        if(book.getPublishYear().equals("")){
+            now = LocalDate.now();
+            book.setPublishYear(String.valueOf(now));
+        }
         booksRepository.save(book);
     }
 

@@ -1,7 +1,6 @@
 package com.thienduy.bookmanagement.controller;
 
 import com.thienduy.bookmanagement.exception.BookRunOut;
-import com.thienduy.bookmanagement.exception.NotFoundBorrowCode;
 import com.thienduy.bookmanagement.model.Book;
 import com.thienduy.bookmanagement.model.BorrowingCode;
 import com.thienduy.bookmanagement.service.IBooksService;
@@ -17,8 +16,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Optional;
-
 
 @Controller
 @RequestMapping(value = "/book")
@@ -32,7 +29,7 @@ public class BookController {
     @GetMapping
     public String showListObject(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
         Sort sort = Sort.by("author").ascending();
-        Page<Book> bookList = booksService.findAllBookPage(PageRequest.of(page, 3, sort));
+        Page<Book> bookList = booksService.findAllBookPage(PageRequest.of(page, 8, sort));
 //        List<Book> bookList = booksService.findAll();
         model.addAttribute("book", new Book());
         model.addAttribute("bookList", bookList);
@@ -77,18 +74,8 @@ public class BookController {
         return "redirect:/book";
     }
 
-    @GetMapping("/return-form")
-    public String showReturnForm() {
-        return "/borrow/return";
+    @ExceptionHandler(BookRunOut.class)
+    public String showErrorPage() {
+        return "error";
     }
-
-
-    @PostMapping("/return")
-    public String returnBook(@RequestParam Integer bookCode) throws NotFoundBorrowCode {
-        BorrowingCode borrowingCode = borrowingCodeService.findById(bookCode);
-        this.borrowingCodeService.delete(borrowingCode);
-        this.booksService.giveBack(borrowingCode.getBooks());
-        return "redirect:/book";
-    }
-
 }

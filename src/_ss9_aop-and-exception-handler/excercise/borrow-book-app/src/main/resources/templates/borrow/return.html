@@ -1,26 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <!--    <th:block th:replace="layout :: link-md-boostrap-css"></th:block>-->
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head"></head>
 <body>
-<div class="container">
-    <!--    <th:block th:replace="layout :: header"></th:block>-->
-    <form th:action="@{/book/return}"
-          method="POST" class="form-control">
-        <div class="row mb-4">
-            <div class="col">
-                <div class="form-outline">
-                    <input type="text" id="formControlDefault" class="form-control" name="bookCode"/>
-                    <label class="form-label" for="formControlDefault">book code</label>
-                </div>
-            </div>
+<h3>RETURN BOOK</h3>
+<p>
+    <a th:href="@{/book}">
+        BACK TO BORROWED BOOKS LIST
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/book/return-book}" th:object="${borrowingCode}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{bookCode}"/>
+        <div>
+            <label>BORROWING START DATE</label>
+            <input type="text" th:field="*{dateStart}" readonly/>
         </div>
-        <button type="submit" class="btn btn-primary btn-block">GIVE BACK</button>
+        <div>
+            <label>BORROWING END DATE</label>
+            <input type="text" th:field="*{dateEnd}" readonly/>
+        </div>
+        <div>
+            <label>BOOK NAME</label>
+            <input type="text" th:field="*{books.nameBooks}" readonly/>
+        </div>
+        <input type="submit" value="RETURN"/>
     </form>
-    <!--    <th:block th:replace="layout :: footer"></th:block>-->
 </div>
-
-<!--<th:block th:replace="layout :: link-md-boostrap-js"></th:block>-->
+<footer th:replace="/layout :: footer"></footer>
 </body>
 </html>

@@ -32,7 +32,7 @@ public class BorrowingCodeService implements IBorrowingCodeService {
 
     @Override
     public void saveBookCode(BorrowingCode borrowingCode) {
-        Integer num = (int) (Math.floor(Math.random() * 100000)-1);
+        Integer num = this.getBorrowingCode();
         LocalDate localDate = LocalDate.now();
         borrowingCode.setDateStart(String.valueOf(localDate));
         borrowingCode.setDateEnd(String.valueOf(localDate));
@@ -45,5 +45,13 @@ public class BorrowingCodeService implements IBorrowingCodeService {
         this.borrowingCodeRepository.delete(borrowingCode);
     }
 
-
+    public Integer getBorrowingCode(){
+        Integer num;
+        while (true){
+            num = (int) (Math.floor(Math.random() * 100000)-1);
+            if (String.valueOf(num).length()==5){
+                return num;
+            }
+        }
+    }
 }
