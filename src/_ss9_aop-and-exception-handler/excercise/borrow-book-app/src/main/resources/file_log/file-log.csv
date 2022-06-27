@@ -3,3 +3,25 @@ METHOD NAME: showListObject TIME: 2022-06-27
 METHOD NAME: goBorrowForm TIME: 2022-06-27
 METHOD NAME: borrowBook TIME: 2022-06-27
 METHOD NAME: showErrorPage TIME: 2022-06-27
+METHOD NAME: showListObject TIME: 2022-06-27
+METHOD NAME: goBorrowForm TIME: 2022-06-27
+[CMS] co loi xay ra: BooksService.borrow[com.thienduy.bookmanagement.model.Book@2accf0c6]: null
+METHOD NAME: borrowBook TIME: 2022-06-27
+METHOD NAME: showErrorPage TIME: 2022-06-27
+METHOD NAME: showListObject TIME: 2022-06-27
+METHOD NAME: goBorrowForm TIME: 2022-06-27
+METHOD NAME: borrowBook TIME: 2022-06-27
+METHOD NAME: showListObject TIME: 2022-06-27
+METHOD NAME: goBorrowForm TIME: 2022-06-27
+METHOD NAME: borrowBook TIME: 2022-06-27
+METHOD NAME: showListObject TIME: 2022-06-27
+METHOD NAME: showListObject TIME: 2022-06-27
+METHOD NAME: goBorrowForm TIME: 2022-06-27
+EXCEPTION AT: 
+METHOD NAME: borrowBook TIME: 2022-06-27
+METHOD NAME: showErrorPage TIME: 2022-06-27
+METHOD NAME: showListObject TIME: 2022-06-27
+METHOD NAME: goBorrowForm TIME: 2022-06-27
+[BOOK] EXCEPTION AT: BooksService.borrow[com.thienduy.bookmanagement.model.Book@4d7544a1]: null
+METHOD NAME: borrowBook TIME: 2022-06-27
+METHOD NAME: showErrorPage TIME: 2022-06-27
