@@ -12,7 +12,10 @@
                 <div id="card" class="card-body">
                     <h5 class="card-title" style="margin-bottom: 0" th:text="${product.name}">MAZDA CX30</h5>
                     <h6 class="card-text" th:text="${product.description}"></h6>
-                    <p class="card-text" th:text="${product.price}"></p>
+                    <s><span th:text="${product.oldPrice}+'$'"></span></s>
+                    <p>
+                        <span class="card-text btn btn-success" th:text="${product.price}+'$'"></span>
+                    </p>
                     <a class="btn btn-danger" th:href="@{/add/__${product.id}__(action='list')}">MUA NGAY</a>
                 </div>
             </div>

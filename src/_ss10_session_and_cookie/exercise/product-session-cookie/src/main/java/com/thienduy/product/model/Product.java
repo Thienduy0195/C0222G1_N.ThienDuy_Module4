@@ -1,17 +1,16 @@
 package com.thienduy.product.model;
 
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name="product")
+@Table(name = "product")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private double oldPrice;
     private double price;
     private String description;
     private String image;
@@ -19,9 +18,10 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id, String name, double price, String description, String image) {
+    public Product(Long id, String name, double oldPrice, double price, String description, String image) {
         this.id = id;
         this.name = name;
+        this.oldPrice = oldPrice;
         this.price = price;
         this.description = description;
         this.image = image;
@@ -41,6 +41,14 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public double getOldPrice() {
+        return oldPrice;
+    }
+
+    public void setOldPrice(double oldPrice) {
+        this.oldPrice = oldPrice;
     }
 
     public double getPrice() {

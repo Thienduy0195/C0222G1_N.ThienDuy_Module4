@@ -3,46 +3,54 @@
 <head th:replace="/layout :: head">
 </head>
 <body>
-<div class="container">
-    <div>
-        <table>
-            <tr>
-                <th>ITEM</th>
-                <th>INFO</th>
+<div class="container-fluid">
+    <form th:action="@{/pay}" th:object="${cart}" method="get">
+        <table id="customers" class="table table-striped bg-light ">
+            <thead class="thead-dark bg-info">
+            </thead>
+            <tbody>
+            <tr th:each="row : ${cart.products}">
+                <th th:text="${row.getKey().name}" class="col-2"></th>
+                <th class="col-3"><img th:src="@{${row.getKey().image}}" class="card-img-top" style="height: auto"/></th>
+                <th><s><span th:text="${row.getKey().oldPrice}+'$'"></span></s></th>
+                <th>
+                    <h5><span class="badge badge-success d-inline" th:text="${row.getKey().price}+'$'"></span></h5>
+                </th>
+                <th class="col-2" th:text="${row.getKey().description}"></th>
+                <th>
+                    <a id="decrease_button" th:href="@{/add/__${row.getKey().id}__(action='minus')}"
+                       th:text="${'-'}" style="display: inline-block">
+                        +
+                    </a>
+                    <span th:text="${row.getValue()}"></span>
+                    <a id="increase_button" th:href="@{/add/__${row.getKey().id}__(action='add')}"
+                       th:text="${'+'}" style="display: inline-block">
+                        -
+                    </a>
+                </th>
+                <th>
+                    <a th:href="@{/delete/__${row.getKey().id}__}">
+                        <button type="button" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </a>
+                </th>
             </tr>
-            <tr th:each="product: ${cart.products}">
-                <td class="col-sm-2">
-                    <div style="">
-                        <im th:src="@{${product.key.image}}" alt="Card image">
-                    </div>
-                </td>
-                <td>
-                    <div>
-                        <h2 th:text="${product.key.name}"></h2>
-                        <span>ĐƠN GIÁ: </span><span th:text="${product.key.price}"></span>
-                        <span>SỐ LƯỢNG: </span><span th:text="${product.getValue()}"></span>
-                    </div>
-                </td>
-            </tr>
+            </tbody>
         </table>
-        <div class="col-sm-3 col-6 row" th:each="product: ${cart.products}">
-            <div style="">
-                <img class="card-img-top" th:src="@{${product.key.image}}" alt="Card image">
-            </div>
-            <div>
-                <h2 th:text="${product.key.name}"></h2>
-                <span>ĐƠN GIÁ: </span><span th:text="${product.key.price}"></span>
-                <span>SỐ LƯỢNG: </span><span th:text="${product.getValue()}"></span>
-                <!--                <p th:text="${product.key.name}"></p>-->
-                <!--                <p></p>-->
-                <!--                <p></p>-->
-                <!--                <p></p>-->
-            </div>
-        </div>
-    </div>
-    <div>
-        <p th:text="${cart.countTotalPayment()}"></p>
-    </div>
+        <a th:href="@{/pay}">
+            <button type="submit" class="btn btn-success">
+                PAY
+            </button>
+        </a>
+    </form>
+    <a th:href="@{/shop}">
+        <button class="btn btn-danger">
+            BACK TO SHOP
+        </button>
+    </a>
 </div>
+<footer th:replace="/layout :: footer"></footer>
 </body>
+
 </html>
