@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <th:block th:replace="layout :: link-md-boostrap-css"></th:block>
+</head>
+<body>
+<div class="container col-10 ">
+    <th:block th:replace="layout :: header"></th:block>
+    <div class="my-2">
+        <a href="" style="text-decoration: none; color: black"><p style="background-color: #fbe9e7" class="small">Shop
+            Online>view>iphone>iphone 11>
+            sản phẩm chất lượng 5* uy tín thế giới</p></a>
+    </div>
+    <div class="my-3 input-group ">
+        <div class="card col-4 mx-3">
+            <div class="bg-image hover-overlay ripple" data-mdb-ripple-color="light">
+                <img th:src="${product.pathImg}" class="img-fluid"/>
+                <a href="#!">
+                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                </a>
+            </div>
+            <div class="card-body">
+                <h4 class="card-title" th:text="${product.name}"></h4>
+                <h6>Old Price: <s><span th:text="${product.oldPrice}"></span></s></h6>
+                <h6>Price: <span class="badge bg-primary" th:text="${product.price}"></span></h6>
+            </div>
+            <div class="card-body">
+            </div>
+        </div>
+        <div class="info col-6 mx-3">
+            <h3 class="card-title" th:text="${product.manufacturer}"></h3>
+            <div class="input-group">
+                <h6 class="badge" style="background-color: #fb8c00">yêu thích +</h6>
+                <h5 class="mx-3" th:text="${product.description}"></h5>
+            </div>
+            <div class="input-group mx-2">
+                <div class="input-group">
+                    5.0
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                |
+                <span class="mx-2">
+                    5,4k Đánh giá
+                </span>
+                |
+                <span>
+                    1,4k Đã bán
+                </span>
+            </div>
+            <div class="row">
+                <img src="https://bizweb.dktcdn.net/100/349/716/files/banner-final-2.jpg?v=1555898211517" class="row">
+            </div>
+            <p>
+                Deal Sốc: <span class="badge bg-warning">tặng kèm deal sốc</span>
+            </p>
+            <p>
+                Vận Chuyển:
+            </p>
+            <div class="number-input md-number-input">
+                số lượng:
+                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus btn">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <input class="quantity" min="0" name="quantity" value="1" type="number" style="width: 40px; text-align: center">
+                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus btn">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+
+            <p class="small text-orange" style="color: #d84315">Giá sản phẩm đã thay đổi vì bạn chọn nhiều hơn số lượng
+                sản phẩm được áp dụng giá ưu đã</p>
+            <a th:href="@{/add/__${product.id}__(action='list')}">
+                <button type="button" class="btn btn-primary" onclick="showMessage()">
+                    thêm vào giỏ hàng
+                </button>
+            </a>
+
+        </div>
+    </div>
+    <th:block th:replace="layout :: footer"></th:block>
+</div>
+<th:block th:replace="layout :: link-md-boostrap-js"></th:block>
+</body>
+</html>
+<script>
+    function showMessage() {
+        alert('đã thêm vào giỏ hàng!');
+    }
+</script>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <th:block th:replace="layout :: link-md-boostrap-css"></th:block>
+</head>
+<body>
+<div class="container col-10">
+    <th:block th:replace="layout :: header"></th:block>
+    <form th:action="@{/pay}" th:object="${cart}" method="get">
+        <!--        <h5>Total Items: <span th:text="${cart.countItemQuantity()}"></span></h5>-->
+        <!--        <h5>Total Products: <span th:text="${cart.countProductQuantity()}"></span></h5>-->
+        <!--        <div class="main-content pt-3 pb-3 row">-->
+        <!--            <div th:each="product: ${cart.products}" class="col-4">-->
+        <!--                <div class="card pt-2">-->
+        <!--                    <a th:href="@{/view/(id=${product.getKey().id})}" class="card-link">-->
+        <!--                        <img th:src="@{${product.getKey().pathImg}}" class="card-img-top" alt="Fissure in Sandstone"/>-->
+        <!--                    </a>-->
+        <!--                    <div class="card-body">-->
+        <!--                        <span>Name: <h4 class="card-title" th:text="${product.getKey().name}"></h4></span>-->
+        <!--                        <h6>Price: <span class="badge bg-primary" th:text="${product.getKey().price}"></span></h6>-->
+        <!--                        <span>Manufacturer: <h6 th:text="${product.getKey().manufacturer}"></h6></span>-->
+        <!--                        <a id="decrease_button" th:href="@{/add/__${product.getKey().id}__(action='show1')}"-->
+        <!--                           th:text="${'-'}">-->
+        <!--                            <button type="button" class="btn btn-light">-->
+        <!--                                +-->
+        <!--                            </button>-->
+        <!--                        </a>-->
+        <!--                        <span th:text="${product.getValue()}"></span>-->
+        <!--                        <a id="increase_button" th:href="@{/add/__${product.getKey().id}__(action='show')}"-->
+        <!--                           th:text="${'+'}">-->
+        <!--                            <button type="button" class="btn btn-light">-->
+        <!--                                - -->
+        <!--                            </button>-->
+        <!--                        </a>-->
+        <!--                    </div>-->
+        <!--                    <div class="card-body">-->
+
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <h4>Total Payments: <span class="badge bg-secondary" th:text="${cart.countTotalPayment()}"></span></h4>-->
+        <table id="customers" class="table table-striped bg-light ">
+            <thead class="thead-dark bg-info">
+            </thead>
+            <tbody>
+            <tr th:each="row : ${cart.products}">
+                <th th:text="${row.getKey().name}" class="col-2"></th>
+                <th><img th:src="@{${row.getKey().pathImg}}" class="card-img-top" style="height: auto"/></th>
+                <th><s><span th:text="${row.getKey().oldPrice}+'$'"></span></s></th>
+                <th>
+                    <h5><span class="badge badge-success d-inline" th:text="${row.getKey().price}+'$'"></span></h5>
+                </th>
+                <th th:text="${row.getKey().manufacturer}"></th>
+                <th class="col-2">
+                        <a id="decrease_button" th:href="@{/add/__${row.getKey().id}__(action='minus')}"
+                           th:text="${'-'}" style="display: inline-block">
+                            +
+                        </a>
+                        <span th:text="${row.getValue()}"></span>
+                        <a id="increase_button" th:href="@{/add/__${row.getKey().id}__(action='add')}"
+                           th:text="${'+'}" style="display: inline-block">
+                            -
+                        </a>
+                </th>
+                <th>
+                    <a th:href="@{/delete/__${row.getKey().id}__}">
+                        <button type="button" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </a>
+                </th>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/pay}">
+            <button type="submit" class="btn btn-primary">
+                pay
+            </button>
+        </a>
+    </form>
+    <th:block th:replace="layout :: footer"></th:block>
+</div>
+<th:block th:replace="layout :: link-md-boostrap-js"></th:block>
+</body>
+
+</html>

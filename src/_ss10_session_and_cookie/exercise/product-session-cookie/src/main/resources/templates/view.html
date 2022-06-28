@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<h3 th:text="${product.name}"></h3>
+<div class="container">
+    <div class="row infor" style="clear: both">
+        <div class="col-sm-3 col-6 div-card">
+            <div class="card">
+                <img class="card-img-top" th:src="@{${product.image}}"  alt="Card image">
+                <div id="card" class="card-body">
+                    <h5 class="card-title" style="margin-bottom: 0" th:text="${product.name}">MAZDA CX30</h5>
+                    <h6 class="card-text" th:text="${product.description}"></h6>
+                    <p class="card-text" th:text="${product.price}"></p>
+                    <a class="btn btn-danger" th:href="@{/add/__${product.id}__(action='list')}">MUA NGAY</a>
+                </div>
+            </div>
+        </div>
+        <div style="background-color: beige; color: brown; height: fit-content; border-radius: 10px; padding: 5px 5px">
+            <p>1. Tặng gói bảo dưỡng miễn phí 20 triệu đồng.</p>
+            <p>2. Tặng phim cách nhiệt chính hãng lLumar.</p>
+            <p>3. Tặng bảo hiểm vật chất 1 năm.</p>
+            <p>4. Bảo hành không giới hạn số km trong 5 năm.</p>
+            <p>5. Một chuyến du lịch hè tại Phú Quốc.</p>
+        </div>
+    </div>
+</div>
+<!--<footer th:replace="/layout :: footer"></footer>-->
+</body>
+</html>

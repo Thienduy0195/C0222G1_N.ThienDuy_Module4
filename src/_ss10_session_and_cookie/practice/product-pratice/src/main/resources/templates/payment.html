@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+    <th:block th:replace="layout :: link-md-boostrap-css"></th:block>
+</head>
+<body>
+<div class="container col-10">
+    <th:block th:replace="layout :: header"></th:block>
+    <div class="mt-3">
+        <a href="/shopping-cart" class="card-link">
+            <button type="button" class="btn btn-warning">
+                your cart
+            </button>
+        </a>
+    </div>
+    <form th:action="@{/pay}" th:object="${cart}" method="get">
+        <h4>Total Payments: <span class="badge bg-secondary" th:text="${cart.countTotalPayment()}+'$'"></span></h4>
+    </form>
+    <th:block th:replace="layout :: footer"></th:block>
+</div>
+</body>
+<th:block th:replace="layout :: link-md-boostrap-js"></th:block>
+</html>

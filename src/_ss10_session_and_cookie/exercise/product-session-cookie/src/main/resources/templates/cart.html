@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body>
+<div class="container">
+    <div>
+        <table>
+            <tr>
+                <th>ITEM</th>
+                <th>INFO</th>
+            </tr>
+            <tr th:each="product: ${cart.products}">
+                <td class="col-sm-2">
+                    <div style="">
+                        <im th:src="@{${product.key.image}}" alt="Card image">
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <h2 th:text="${product.key.name}"></h2>
+                        <span>ĐƠN GIÁ: </span><span th:text="${product.key.price}"></span>
+                        <span>SỐ LƯỢNG: </span><span th:text="${product.getValue()}"></span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="col-sm-3 col-6 row" th:each="product: ${cart.products}">
+            <div style="">
+                <img class="card-img-top" th:src="@{${product.key.image}}" alt="Card image">
+            </div>
+            <div>
+                <h2 th:text="${product.key.name}"></h2>
+                <span>ĐƠN GIÁ: </span><span th:text="${product.key.price}"></span>
+                <span>SỐ LƯỢNG: </span><span th:text="${product.getValue()}"></span>
+                <!--                <p th:text="${product.key.name}"></p>-->
+                <!--                <p></p>-->
+                <!--                <p></p>-->
+                <!--                <p></p>-->
+            </div>
+        </div>
+    </div>
+    <div>
+        <p th:text="${cart.countTotalPayment()}"></p>
+    </div>
+</div>
+</body>
+</html>

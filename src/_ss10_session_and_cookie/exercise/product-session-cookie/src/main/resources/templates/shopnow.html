@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+</head>
+<body  style="background-color: #dddddd">
+<h3 style="margin-bottom: 0">THACO AUTO</h3>
+<nav class="navbar navbar-expand-lg p-2 my-0 col "  style="background-color: #f2f2f2">
+    <p class="btn btn-dark my-2 my-sm-0 add-new">
+        <a href="/shopping-cart" style="color: #f2f2f2; font-weight: bold">YOUR CART</a>
+    </p>
+
+    <form class="form-inline my-2 my-lg-0 search" th:action="@{/shop/search}" th:object="${product}" method="get">
+        <input class="form-control mr-sm-2" placeholder="Enter product's name" type="text"
+               th:field="*{name}">
+        <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</nav>
+<!--<div>-->
+<!--    <span>-->
+<!--        <a th:if = "${bookList.hasPrevious()}" th:href="@{/book(page = ${bookList.number - 1})}">Previous</a>-->
+<!--    </span>-->
+<!--    <span th:each="pageNo: ${#numbers.sequence(0,bookList.totalPages - 1)}">-->
+<!--        <a th:href="@{/book(page = ${pageNo})}" th:text="${pageNo}"></a>-->
+<!--    </span>-->
+<!--    <span>-->
+<!--        <a th:if = "${bookList.hasNext()}" th:href="@{/book(page = ${bookList.number +1})}">Next</a>-->
+<!--    </span>-->
+<!--</div>-->
+
+<div class="container" >
+    <div class="row infor" style="clear: both">
+        <div id="card" class="col-sm-3 col-6 div-card" th:each="item : ${products}">
+            <div class="card">
+                <a th:href="@{/shop/{id}/view(id=${item.id})}">
+                    <img class="card-img-top" th:src="@{${item.image}}"  alt="Card image">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title" style="margin-bottom: 0" th:text="${item.name}"></h5>
+                    <h6 class="card-text" th:text="${item.description}"></h6>
+                    <p class="card-text" th:text="${item.price}"></p>
+<!--                    <a class="btn btn-primary" th:href="@{/add/__${item.id}__(action='list')}">Add To Cart</a>-->
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+<!--<div><p th:text="${success}" style="color: green; font-size: 1.5em"></p></div>-->
+<footer th:replace="/layout :: footer"></footer>
+</body>
+</html>
