@@ -2,7 +2,6 @@ package com.thienduy.bookmanagement.model;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "borrowing_code")
 public class BorrowingCode {

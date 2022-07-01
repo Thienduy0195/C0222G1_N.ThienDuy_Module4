@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="56d2f933-2893-4826-b6a1-b8845217915f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../simple_blog_ajax/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../simple_blog_ajax/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/src/main/java/com/codegym/blog/controller/BlogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/src/main/java/com/codegym/blog/controller/BlogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/src/main/java/com/codegym/blog/repository/IBlogRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/src/main/java/com/codegym/blog/repository/IBlogRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/src/main/java/com/codegym/blog/restcontroller/RestControllerBlog.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/src/main/java/com/codegym/blog/restcontroller/RestControllerBlog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/src/main/java/com/codegym/blog/service/IBlogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/src/main/java/com/codegym/blog/service/IBlogService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/src/main/java/com/codegym/blog/service/impl/BlogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/src/main/java/com/codegym/blog/service/impl/BlogService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/src/main/resources/templates/blog/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/src/main/resources/templates/blog/layout.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/src/main/resources/templates/blog/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/exercise/blog-management-restful/src/main/resources/templates/blog/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/practice/spring-customer-management-restful" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss11_web_service_and_restful/practice/spring-customer-management-restful" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss1_spring_mvc_over_views/practice/customer-management" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss1_spring_mvc_over_views/practice/customer-management" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss7_spring-data-repository/practice/spring-customer-management" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss7_spring-data-repository/practice/spring-customer-management" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss8_validation/practice/spring-validate-infor-user" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss8_validation/practice/spring-validate-infor-user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss9_aop-and-exception-handler/excercise/borrow-book-app/src/main/java/com/thienduy/bookmanagement/controller/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss9_aop-and-exception-handler/excercise/borrow-book-app/src/main/java/com/thienduy/bookmanagement/controller/BookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss9_aop-and-exception-handler/excercise/borrow-book-app/src/main/java/com/thienduy/bookmanagement/controller/BorrowCodeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss9_aop-and-exception-handler/excercise/borrow-book-app/src/main/java/com/thienduy/bookmanagement/controller/BorrowCodeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss9_aop-and-exception-handler/excercise/borrow-book-app/src/main/java/com/thienduy/bookmanagement/model/BorrowingCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss9_aop-and-exception-handler/excercise/borrow-book-app/src/main/java/com/thienduy/bookmanagement/model/BorrowingCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss9_aop-and-exception-handler/excercise/borrow-book-app/src/main/java/com/thienduy/bookmanagement/service/IBorrowingCodeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss9_aop-and-exception-handler/excercise/borrow-book-app/src/main/java/com/thienduy/bookmanagement/service/IBorrowingCodeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss9_aop-and-exception-handler/excercise/borrow-book-app/src/main/java/com/thienduy/bookmanagement/service/impl/BooksService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss9_aop-and-exception-handler/excercise/borrow-book-app/src/main/java/com/thienduy/bookmanagement/service/impl/BooksService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../_ss9_aop-and-exception-handler/practice/customer-management" beforeDir="false" afterPath="$PROJECT_DIR$/../../../_ss9_aop-and-exception-handler/practice/customer-management" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectId" id="2BIujIsEmXoQMbNudbgpsTtdlwF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\CG_FULL_STACK\CG_MODULE_4\src\_ss12_ajax-and-jquery\practice\practice2-phone-management-app\src\main\resources\templates" />
+      <recent name="D:\CG_FULL_STACK\CG_MODULE_4\src\_ss12_ajax-and-jquery\practice\practice2-phone-management-app\src\main\java\com\thienduy\phone" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="PhoneApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="phone.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.thienduy.phone.PhoneApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="56d2f933-2893-4826-b6a1-b8845217915f" name="Default Changelist" comment="" />
+      <created>1656606053406</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1656606053406</updated>
+      <workItem from="1656606062165" duration="4890000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="463" y="119" key="FileChooserDialogImpl" timestamp="1656606729225">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="463" y="119" key="FileChooserDialogImpl/0.0.1366.728@0.0.1366.728" timestamp="1656606729225" />
+    <state width="1306" height="220" key="GridCell.Tab.0.bottom" timestamp="1656633247455">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="220" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1656633247455" />
+    <state width="1306" height="220" key="GridCell.Tab.0.center" timestamp="1656633247455">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="220" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1656633247455" />
+    <state width="1306" height="220" key="GridCell.Tab.0.left" timestamp="1656633247455">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="220" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1656633247455" />
+    <state width="1306" height="220" key="GridCell.Tab.0.right" timestamp="1656633247455">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="220" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1656633247455" />
+    <state width="1306" height="220" key="GridCell.Tab.1.bottom" timestamp="1656633247455">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="220" key="GridCell.Tab.1.bottom/0.0.1366.728@0.0.1366.728" timestamp="1656633247455" />
+    <state width="1306" height="220" key="GridCell.Tab.1.center" timestamp="1656633247455">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="220" key="GridCell.Tab.1.center/0.0.1366.728@0.0.1366.728" timestamp="1656633247455" />
+    <state width="1306" height="220" key="GridCell.Tab.1.left" timestamp="1656633247455">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="220" key="GridCell.Tab.1.left/0.0.1366.728@0.0.1366.728" timestamp="1656633247455" />
+    <state width="1306" height="220" key="GridCell.Tab.1.right" timestamp="1656633247455">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="220" key="GridCell.Tab.1.right/0.0.1366.728@0.0.1366.728" timestamp="1656633247455" />
+    <state width="1306" height="220" key="GridCell.Tab.2.bottom" timestamp="1656633247456">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="220" key="GridCell.Tab.2.bottom/0.0.1366.728@0.0.1366.728" timestamp="1656633247456" />
+    <state width="1306" height="220" key="GridCell.Tab.2.center" timestamp="1656633247456">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="220" key="GridCell.Tab.2.center/0.0.1366.728@0.0.1366.728" timestamp="1656633247456" />
+    <state width="1306" height="220" key="GridCell.Tab.2.left" timestamp="1656633247455">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="220" key="GridCell.Tab.2.left/0.0.1366.728@0.0.1366.728" timestamp="1656633247455" />
+    <state width="1306" height="220" key="GridCell.Tab.2.right" timestamp="1656633247456">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state width="1306" height="220" key="GridCell.Tab.2.right/0.0.1366.728@0.0.1366.728" timestamp="1656633247456" />
+  </component>
+</project>

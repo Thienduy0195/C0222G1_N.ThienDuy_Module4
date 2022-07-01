@@ -15,31 +15,24 @@ import java.util.List;
 public class BorrowCodeController {
 
     @Autowired
-    IBooksService booksService;
+    private IBooksService booksService;
 
     @Autowired
-    IBorrowingCodeService borrowingCodeService;
+    private IBorrowingCodeService borrowingCodeService;
 
     @GetMapping(value = "/book/borrow-list")
     public String showListObject(Model model) {
         List<BorrowingCode> borrowingCodeList = borrowingCodeService.findAll();
-//        List<Book> bookList = booksService.findAll();
-//        model.addAttribute("borrowingCode", new BorrowingCode());
         model.addAttribute("borrowingCodeList", borrowingCodeList);
         return "/borrow/list";
     }
 
-//    @GetMapping("/{id}/return-form")
-//    public String showReturnForm(Model model) {
-//        return "/borrow/return";
-//    }
 
     @GetMapping("/book/{code}/return-form")
     public String update(@PathVariable Integer code, Model model) throws NotFoundBorrowCode {
         model.addAttribute("borrowingCode", borrowingCodeService.findById(code));
         return "/borrow/return";
     }
-
 
     @PostMapping("/book/return-book")
     public String returnBook(@RequestParam Integer bookCode) throws NotFoundBorrowCode {

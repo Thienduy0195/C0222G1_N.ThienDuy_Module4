@@ -30,7 +30,6 @@ public class BookController {
     public String showListObject(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
         Sort sort = Sort.by("author").ascending();
         Page<Book> bookList = booksService.findAllBookPage(PageRequest.of(page, 8, sort));
-//        List<Book> bookList = booksService.findAll();
         model.addAttribute("book", new Book());
         model.addAttribute("bookList", bookList);
         return "/book/book-list";
@@ -59,11 +58,6 @@ public class BookController {
         return "/borrow/borrow";
     }
 
-//    @GetMapping("/borrow-date")
-//    public String showBorrowDate(Model model){
-//        model.addAttribute("borrowingCode", new BorrowingCode());
-//        return "/borrow/choose-borrow-date";
-//    }
 
     @PostMapping("/borrow")
     public String borrowBook(@ModelAttribute Book books) throws BookRunOut {
