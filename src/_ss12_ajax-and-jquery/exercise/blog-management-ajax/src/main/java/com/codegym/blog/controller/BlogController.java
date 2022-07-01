@@ -6,7 +6,6 @@ import com.codegym.blog.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,16 +18,18 @@ import java.util.List;
 @Controller
 @RequestMapping("/blog")
 public class BlogController {
+    int size = 3;
+
     @Autowired
     IBlogService blogService;
 
     @Autowired
     ICategoryService categoryService;
-    
-    @GetMapping
+
+    @GetMapping()
     public String showListBlog(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
         Sort sort = Sort.by("create_day").ascending();
-        Page<Blog> blogList = blogService.findAllBlogPage(PageRequest.of(page, 3, sort));
+        Page<Blog> blogList = blogService.findAllBlogPage(PageRequest.of(page, size, sort));
         model.addAttribute("blog", new Blog());
         model.addAttribute("blogList", blogList);
         return "blog/list";
@@ -69,17 +70,6 @@ public class BlogController {
         modelAndView.addObject("blog", blog);
         return modelAndView;
     }
-
-//    @GetMapping("/search")
-//    public String searchByName(@RequestParam(name = "page", defaultValue = "0") int page,
-//                               Blog blog, Model model) {
-//        Pageable pageable;
-//        Sort sort = Sort.by("create_day").ascending();
-//        pageable = PageRequest.of(page, 10, sort);
-//        Page<Blog> blogList = blogService.searchByBlogName(blog.getBlogName(), pageable);
-//        model.addAttribute("blogList", blogList);
-//        return "blog/list";
-//    }
 
     @GetMapping("/{id}/delete")
     public String delete(@PathVariable Long id, Model model) {

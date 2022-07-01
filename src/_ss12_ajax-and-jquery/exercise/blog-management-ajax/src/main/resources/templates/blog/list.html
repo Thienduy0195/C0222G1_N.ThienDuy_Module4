@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="/blog/layout :: head">
 </head>
-<body>
+<body id="home">
 <h3>BLOG OF MONTH </h3>
 <nav class="navbar navbar-expand-lg p-2 my-0 col ">
     <p class="btn btn-dark my-2 my-sm-0 add-new">
@@ -15,13 +15,12 @@
             LIST OF CATEGORY
         </a>
     </p>
-    <form class="form-inline my-2 my-lg-0 search" method="get">
+    <form class="form-inline my-2 my-lg-0 search" method="get" id="search">
         <input id="blogName" class="form-control mr-sm-2" placeholder="Enter the blog's name" type="text">
-        <button type="submit" onclick="searchBlog()">Search</button>
-        <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+        <button class="btn btn-dark my-2 my-sm-0 searchName" type="submit">Search</button>
     </form>
 </nav>
-<table id = "songs">
+<table id="songs">
     <thead>
     <tr>
         <th>No.</th>
@@ -36,7 +35,7 @@
         <th>View</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody id="tBody">
     <tr th:each="row,rowStat : ${blogList}">
         <td th:text="${row.getId()}"></td>
         <td th:text="${row.getBlogName()}"></td>
@@ -47,48 +46,89 @@
         <td th:text="${row.category.name}"></td>
         <td><a class="btn btn-primary" th:href="@{/blog/{id}/edit(id=${row.getId()})}">EDIT</a></td>
         <td><a class="btn btn-danger" th:href="@{/blog/{id}/delete(id=${row.getId()})}">DELETE</a></td>
-        <td><a class="btn btn-success"  th:href="@{/blog/{id}/view(id=${row.getId()})}">VIEW</a></td>
+        <td><a class="btn btn-success" th:href="@{/blog/{id}/view(id=${row.getId()})}">VIEW</a></td>
     </tr>
     </tbody>
 </table>
 <div>
+    <button class="btn btn-secondary " onclick="loadMore()">
+        TẢI THÊM
+    </button>
+</div>
+<div>
     <span>
-        <a th:if = "${blogList.hasPrevious()}" th:href="@{/blog(page = ${blogList.number - 1})}">Previous</a>
+        <a th:if="${blogList.hasPrevious()}" th:href="@{/blog(page = ${blogList.number - 1})}">Previous</a>
     </span>
     <span th:each="pageNo: ${#numbers.sequence(0,blogList.totalPages - 1)}">
         <a th:href="@{/blog(page = ${pageNo})}" th:text="${pageNo}"></a>
     </span>
     <span>
-        <a th:if = "${blogList.hasNext()}" th:href="@{/blog(page = ${blogList.number +1})}">Next</a>
+        <a th:if="${blogList.hasNext()}" th:href="@{/blog(page = ${blogList.number +1})}">Next</a>
     </span>
 </div>
 <div><p th:text="${success}" style="color: green; font-size: 1.5em"></p></div>
 <footer th:replace="/blog/layout :: footer"></footer>
 </body>
 <script type="text/javascript">
-    function searchBlog() {
-        //lay du lieu
-        let name = $('#blogName').val();
-        let blog = {
-            name:name
-        };
-        // goi ajax
+    var size = 3;
+
+    function loadMore() {
+        size += 2;
         $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
             type: "GET",
-            data: JSON.stringify(blog),
             //tên API
-            url: "/goBlog/searching",
+            url: `/goBlog/list/${size}`,
             //xử lý khi thành công
-            success:function(data){
-                console.log(data)
+            success: function (data) {
+                if (size > data.length) {
+                    alert("Đã hết danh sách cần hiển thị!")
+                }
+                successHandler(data)
             }
         });
         //chặn sự kiện mặc định của thẻ
         event.preventDefault();
     }
+
+    $(document).ready(function () {
+        $("#search").on("click", '.searchName', function () {
+            //lay du lieu
+            let name = $('#blogName').val();
+            $.ajax({
+                type: "GET",
+                //tên API
+                url: `/goBlog/searching/${name}`,
+                //xử lý khi thành công
+                success: function (data) {
+                    console.log(data)
+                    successHandler(data)
+                }
+            });
+            //chặn sự kiện mặc định của thẻ
+            event.preventDefault();
+        })
+    })
+
+    function successHandler(data) {
+        let contents = ""
+        for (let i = 0; i < data.length; i++) {
+            contents += getBlog(data[i]);
+        }
+        document.getElementById('tBody').innerHTML = contents;
+    }
+
+    function getBlog(blog) {
+        return `<tr><td >${blog.id} </td>` +
+            `<td >${blog.blogName}</td>` +
+            `<td >${blog.author}</td>` +
+            `<td >${blog.blogDescription}</td>` +
+            `<td >${blog.content}</td>` +
+            `<td >${blog.createDay}</td>` +
+            `<td >${blog.category.name}</td>` +
+            `<td><a class="editBlog btn btn-primary" href="${blog.id}">EDIT</a></td>` +
+            `<td><a class="deleteBlog btn btn-danger" href="${blog.id}">DELETE</a></td>` +
+            `<td><a class="updateBlog btn btn-success" href="${blog.id}">UPDATE</a></td></tr>`;
+    }
+
 </script>
 </html>

@@ -12,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -27,14 +26,14 @@ public class RestControllerBlog {
     @Autowired
     ICategoryService categoryService;
 
-    @GetMapping("/list")
-    public ResponseEntity<Page<Blog>> showListBlog(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
+    @GetMapping("/list/{size}")
+    public ResponseEntity<?> showListBlog(@RequestParam(name = "page", defaultValue = "0") int page, @PathVariable("size") int size) {
         Sort sort = Sort.by("create_day").ascending();
-        Page<Blog> blogList = iBlogService.findAllBlogPage(PageRequest.of(page, 3, sort));
+        Page<Blog> blogList = iBlogService.findAllBlogPage(PageRequest.of(page, size, sort));
         if (!blogList.hasContent()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(blogList, HttpStatus.OK);
+        return new ResponseEntity<>(blogList.getContent(), HttpStatus.OK);
     }
 
     @GetMapping("/list-category")
@@ -50,9 +49,9 @@ public class RestControllerBlog {
 
     @GetMapping("/list-category/{id}")
     public ResponseEntity<List<Blog>> getPagePosts(@PageableDefault(value = 2) Pageable pageable,
-                                                        @PathVariable Integer id) {
+                                                   @PathVariable Integer id) {
         Category category = this.categoryService.findById(id);
-        Set<Blog> blogSet =category.getBlogSet();
+        Set<Blog> blogSet = category.getBlogSet();
         List<Blog> blogModels = new ArrayList<>(blogSet);
         if (blogModels.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -69,12 +68,10 @@ public class RestControllerBlog {
         return new ResponseEntity<>(blogModel, HttpStatus.OK);
     }
 
-    @GetMapping("/searching")
-    public ResponseEntity<List<Blog>> searchBlog(@RequestBody Blog blog) {
-        String name = blog.getBlogName();
-        List<Blog> blogs = iBlogService.searchByBlogName(blog.getBlogName());
-        return new ResponseEntity<>(blogs, HttpStatus.CREATED);
+    @GetMapping("/searching/{name}")
+    public ResponseEntity<List<Blog>> searchBlog(@PathVariable("name") String name) {
+        List<Blog> blogs = iBlogService.searchByBlogName(name);
+        return new ResponseEntity<>(blogs, HttpStatus.OK);
     }
-
 
 }

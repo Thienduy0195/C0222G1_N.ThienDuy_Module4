@@ -22,5 +22,5 @@ public interface IBlogService {
     Page<Blog> searchBlog(String keyword, Pageable pageable);
 
     List<Blog> searchByBlogName(String blogName);
-//    Page<Blog> searchByBlogName(String blogName, Pageable pageable);
+
 }

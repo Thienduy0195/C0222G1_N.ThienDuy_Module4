@@ -20,7 +20,6 @@ public class CategoryController {
 
     @GetMapping(value = "/category")
     public String showListCategory(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
-//        Sort sort = Sort.by("create_day").ascending();
         Page<Category> categoryList = categoryService.findAllCategoryPage(PageRequest.of(page, 10));
         model.addAttribute("category", new Blog());
         model.addAttribute("categoryList", categoryList);
