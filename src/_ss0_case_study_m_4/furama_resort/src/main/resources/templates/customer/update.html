@@ -9,37 +9,40 @@
     </a>
 </p>
 <div id="form">
-    <form action="#" th:action="@{/customer/update}" th:object="${customer}"
+    <form action="#" th:action="@{/customer/update}" th:object="${customerDto}"
           method="POST" novalidate="novalidate">
         <input type="hidden" th:field="*{id}"/>
         <div class="form-group">
             <label for="customerTypeId">CHOOSE CUSTOMER TYPE:</label>
             <select id="customerTypeId" th:field="*{customerType}" class="form-control border-primary">
-<!--                <option value="">&#45;&#45;Choose customer type&#45;&#45;</option>-->
                 <option th:each="customerType: ${customerTypeList}" th:value="${customerType.id}" th:text="${customerType.name}">
-
                 </option>
             </select>
         </div>
         <div>
             <label>CUSTOMER NAME</label>
             <input type="text" th:field="*{name}"/>
+            <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
         </div>
         <div>
             <label>CUSTOMER BIRTHDAY</label>
             <input type="date" th:field="*{birthDay}"/>
+            <p class="text-danger" th:if="${#fields.hasErrors('birthDay')}" th:errors="*{birthDay}"></p>
         </div>
         <div>
             <label>CUSTOMER ID CARD</label>
             <input type="text" th:field="*{idCard}"/>
+            <p class="text-danger" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></p>
         </div>
         <div>
             <label>CUSTOMER PHONE</label>
             <input type="text" th:field="*{phone}"/>
+            <p class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
         </div>
         <div>
             <label>CUSTOMER EMAIL</label>
             <input type="text" th:field="*{email}"/>
+            <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
         </div>
         <div>
             <label>CUSTOMER ADDRESS</label>
@@ -47,13 +50,14 @@
         </div>
         <div class="form-group">
             <label>CUSTOMER GENDER:</label>
-            <input type="radio" th:field="*{gender}" value="0"/> Nam
+            <input type="radio" th:field="*{gender}" value="0" checked/> Nam
             <input type="radio" th:field="*{gender}" value="1"/> Nữ
             <input type="radio" th:field="*{gender}" value=""/> khác
         </div>
         <div>
             <label>CUSTOMER CODE</label>
             <input type="text" th:field="*{customerCode}"/>
+            <p class="text-danger" th:if="${#fields.hasErrors('customerCode')}" th:errors="*{customerCode}"></p>
         </div>
         <input type="submit" value="Edit"/>
     </form>

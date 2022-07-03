@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>CUSTOMER MANAGEMENT</title>
-<link rel="stylesheet" type="text/css" th:href="@{bootstrap/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{bootstrap/bootstrap/css/bootstrap.min.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="container-fluid border col-12 " style="width: 100%; padding: 0 0; background-color: #dae0e5">
@@ -20,7 +21,7 @@
                     <a class="nav-link text-black-50" href="/customer">Customer</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-black-50" href="/service">Service</a>
+                    <a class="nav-link text-black-50" href="/facility">Service</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-black-50" href="#">Contract</a>
@@ -35,7 +36,8 @@
         </div>
     </nav>
     <div align="center">
-        <table class="table table-striped " id="tableCustomer" style="border-color: #a71d2a; margin: 0; background-color: white">
+        <table class="table table-striped " id="tableCustomer"
+               style="border-color: #a71d2a; margin: 0; background-color: white">
             <thead class="thead-dark">
             <tr>
                 <th>ID</th>
@@ -50,7 +52,7 @@
                 <th>Delete</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody id="customerList">
             <tr th:each="row,rowStat : ${customerList}">
                 <td th:text="${row.id}"></td>
                 <td th:text="${row.name}"></td>
@@ -64,44 +66,30 @@
                     <p th:if="${row.gender==1}">Female</p>
                     <p th:if="${row.gender==null}">Other</p>
                 </td>
-                <td><a class="btn btn-primary" th:href="@{/customer/{id}/edit(id=${row.getId()})}">EDIT</a></td>
-                <td><a class="btn btn-danger" th:href="@{/customer/{id}/delete(id=${row.getId()})}">DELETE</a></td>
-<!--                <td>-->
-<!--                    <button type="button" class="btn btn-danger"-->
-<!--                            data-toggle="modal" data-target="#exampleModalCenter"-->
-<!--                            onclick="infoDelete(${row.id}, row.name, row.email)">-->
-<!--                        DELETE-->
-<!--                    </button>-->
-<!--                </td>-->
+                <td><a class="btn btn-primary" th:href="@{/customer/edit/{id}(id=${row.getId()})}">EDIT</a></td>
+                <td>
+                    <a id="deleteItem" type="button" class="btn btn-danger deleteCustomer" th:href="${row.id}"
+                       data-toggle="modal" data-target="#exampleModalCenter">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
             </tr>
-<!--            <c:forEach var="customer" items="${customerList}">-->
-<!--                <tr>-->
-<!--                    <td><c:out value="${customer.customerId}"/></td>-->
-<!--                    <td>-->
-<!--                        ${customerTypeMap.get(customer.customerType)}-->
-<!--                    </td>-->
-<!--                    <td><c:out value="${customer.customerName}"/></td>-->
-<!--                    <td><c:out value="${customer.customerBirthDay}"/></td>-->
-<!--                    <td>-->
-<!--                        ${customerGenderMap.get(customer.customerGender)}-->
-<!--                    </td>-->
-<!--                    <td><c:out value="${customer.customerIdCard}"/></td>-->
-<!--                    <td><c:out value="${customer.customerPhone}"/></td>-->
-<!--                    <td><c:out value="${customer.customerEmail}"/></td>-->
-<!--                    <td><c:out value="${customer.customerAddress}"/></td>-->
-<!--                    <td>-->
-<!--                        <a href="/customer?action=edit&id=${customer.customerId}" target="_blank">-->
-<!--                            <button style="padding: 3px 6px" type="button" class="btn btn-primary">-->
-<!--                                Edit-->
-<!--                            </button>-->
-<!--                        </a>-->
-
-<!--                    </td>-->
-<!--                </tr>-->
-<!--            </c:forEach>-->
             </tbody>
         </table>
 
+        <div>
+    <span>
+        <a th:if = "${customerList.hasPrevious()}" th:href="@{/customer(page = ${customerList.number - 1})}">Previous</a>
+    </span>
+            <span th:each="pageNo: ${#numbers.sequence(0,customerList.totalPages - 1)}">
+        <a th:href="@{/customer(page = ${pageNo})}" th:text="${pageNo}"></a>
+    </span>
+            <span>
+        <a th:if = "${customerList.hasNext()}" th:href="@{/customer(page = ${customerList.number +1})}">Next</a>
+    </span>
+        </div>
+
+        <!-- Modal -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
              aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -112,7 +100,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="/customer" method="post">
+                    <form id="confirmDelete" method="post" th:action="@{/customer/delete}">
                         <div class="modal-body">
                             <input type="hidden" name="action" value="delete">
                             <input type="hidden" id="id_delete" name="id">
@@ -121,38 +109,49 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
-                            <button type="submit" class="btn btn-danger">YES</button>
+                            <button type="submit" class="btn btn-danger delete">YES</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
     <a th:href="@{/customer/create}" target="_blank">
         <button type="button" class="btn btn-primary">Create New</button>
     </a>
     <p style="font-size: 2em; color: green" th:text="${message}"></p>
-
     <script src="jquery/jquery-3.5.1.min.js"></script>
-    <script src="datatables/js/jquery.dataTables.min.js"></script>
-    <script src="datatables/js/dataTables.bootstrap4.min.js"></script>
     <script src="bootstrap\bootstrap\js\bootstrap.min.js"></script>
+</div>
 </body>
 </html>
 
 <script>
-    function infoDelete(customerId, customerName, customerEmail) {
-        document.getElementById("id_delete").value = customerId;
-        document.getElementById("name_delete").innerText = "Do you want to delete " + customerName + "?";
-        document.getElementById("email_delete").innerText = "Email: " + customerEmail;
-    }
-</script>
-<script>
     $(document).ready(function () {
-        $('#tableCustomer').dataTable({
-            "dom": 'lrtip',
-            "lengthChange": false,
-            "pageLength": 8
+
+        $('#tableCustomer').on("click", ".deleteCustomer", function (event) {
+            //lay du lieu
+            let a = $(this);
+            let id = a.attr("href");
+            // goi ajax
+            $.ajax({
+                type: "GET",
+                //tên API
+                url: `/api/customer/${id}`,
+                //CHƯA LÀM REST CONTROLLER
+                success: function (data) {
+                    showInfoDelete(data)
+                }
+            });
+            //chặn sự kiện mặc định của thẻ
+            event.preventDefault();
         });
-    });
+
+        function showInfoDelete(item) {
+            document.getElementById("id_delete").value = item.id;
+            document.getElementById("name_delete").innerText = "Do you want to delete " + item.name + "?";
+            document.getElementById("email_delete").innerText = "Email: " + item.email;
+        }
+    })
 </script>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="layout :: link-md-boostrap-css"></th:block>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<th:block th:replace="home :: header-nav-bar"></th:block>
+<div class="container col-8 my-5">
+<form th:action="@{/customer/save}" th:object="${customerDto}"
+      method="POST" class="form-control">
+    <h1 class="text-center" style="font-family: 'Quicksand', serif">Create New Customer</h1>
+    <div class="row mx-auto mb-4 mt-4">
+        <input type="hidden" th:field="*{id}"/>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <input type="text" id="formControlDefault" class="form-control" th:field="*{customerCode}"/>
+                    <label class="form-label" for="formControlDefault">code</label>
+                </div>
+                <small class="text-danger small" th:if="${#fields.hasErrors('customerCode')}" th:errors="*{customerCode}"></small>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <input type="text" id="formControlDefault1" class="form-control" th:field="*{name}"/>
+                    <label class="form-label" for="formControlDefault">Name</label>
+                </div>
+                <small class="text-danger small" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <input type="text" id="formControlDefault3" class="form-control" th:field="*{idCard}"/>
+                    <label class="form-label" for="formControlDefault">Id Card</label>
+                </div>
+                <small class="text-danger small" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></small>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <input type="date" id="formControlDefault4" class="form-control" th:field="*{birthDay}"/>
+                    <label class="form-label " for="formControlDefault">birthDay</label>
+                </div>
+                <small class="text-danger small" th:if="${#fields.hasErrors('birthDay')}" th:errors="*{birthDay}"></small>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <input type="text" id="formControlDefault5" class="form-control" th:field="*{phone}"/>
+                    <label class="form-label" for="formControlDefault">phone</label>
+                </div>
+                <small class="text-danger small" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></small>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <input type="text" id="formControlDefault6" class="form-control" th:field="*{email}"/>
+                    <label class="form-label" for="formControlDefault">email</label>
+                </div>
+                <small class="text-danger small" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col">
+                <div class="form-outline">
+                    <input type="text" id="formControlDefault7" class="form-control" th:field="*{address}"/>
+                    <label class="form-label" for="formControlDefault">address</label>
+                </div>
+                <small class="text-danger small" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></small>
+            </div>
+            <div class="col">
+                <div class="form-outline">
+                    <input type="radio" id="formControlDefault8"  th:field="*{gender}" value="1"/> Nam
+                    <input type="radio" id="formControlDefault11" th:field="*{gender}" value="0"/> Nữ
+                    <input type="radio" id="formControlDefault12" th:field="*{gender}" value="2"/> khác
+                </div>
+                <small class="text-danger small" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></small>
+            </div>
+            <div class="col">
+                <select th:field="*{customerType}" class="form-select" >
+                    <option value="">--choose customer type--</option>
+                    <option th:each="item :${customerTypes}"
+                            th:value="${item.id}"
+                            th:text="${item.name}">
+                    </option>
+                </select>
+                <small class="text-danger small" th:if="${#fields.hasErrors('customerType')}" th:errors="*{customerType}"></small>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Save</button>
+    </div>
+</form>
+</div>
+<th:block th:replace="home :: footer-body"></th:block>
+<th:block th:replace="layout :: link-md-boostrap-js"></th:block>
+</body>
+</html>

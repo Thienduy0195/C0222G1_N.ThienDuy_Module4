@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CREATE NEW FACILITY</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap/bootstrap/css/style_create.css}">
+    <style th:inline="text">
+        /*body{*/
+        /*background: url{[[@{/img/background-create.jpg}]]}*/
+        /*no-repeat center center fixed;*/
+        /*}*/
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <nav class="navbar navbar-expand-lg p-2 my-0 col " style="background: #d6d8db">
+            <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link text-white" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/employee">Employee</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/customer">Customer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/service">Service</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="#">Contract</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </nav>
+</header>
+<div class="container-fluid" align="center">
+    <div class="col-4">
+        <form th:action="@{/facility/save}" th:object="${serviceDto}" class="content-create-form" method="post"
+              novalidate="novalidate">
+            <!--            <p>-->
+            <!--                <c:if test='${requestScope["message"] != null}'>-->
+            <!--                    <span style="color: red" class="message">${requestScope["message"]}</span>-->
+            <!--                </c:if>-->
+            <!--            </p>-->
+            <input type="hidden" th:field="*{id}"/>
+            <div class="form-group">
+                <label for="serviceType">Choose Service type:</label>
+                <select id="serviceType" th:field="*{serviceType}" class="form-control border-primary">
+                    <option value="">--Choose Service type--</option>
+                    <option th:each="serviceType: ${serviceTypeList}" th:value="${serviceType.id}"
+                            th:text="${serviceType.name}">
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="customerId">Enter Service name:</label>
+                <input type="text" class="form-control" id="customerId" th:field="*{name}"/>
+                <p style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+            </div>
+            <div class="form-group">
+                <label for="customerBirthday">Enter Area:</label>
+                <input type="text" class="form-control" id="customerBirthday" th:field="*{area}"/>
+                <p style="color: red" th:if="${#fields.hasErrors('area')}" th:errors="*{area}"></p>
+            </div>
+            <div class="form-group">
+                <label for="customerIdCard">Enter cost:</label>
+                <input type="text" id="customerIdCard" class="form-control" th:field="*{cost}"/>
+                <p style="color: red" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}"></p>
+            </div>
+            <div class="form-group">
+                <label for="customerPhone">Enter maxPeople:</label>
+                <input type="text" id="customerPhone" class="form-control" th:field="*{maxPeople}"/>
+                <p style="color: red" th:if="${#fields.hasErrors('maxPeople')}" th:errors="*{maxPeople}"></p>
+            </div>
+            <div class="form-group">
+                <label for="customerEmail">Enter standardRoom:</label>
+                <input type="text" id="customerEmail" class="form-control" th:field="*{standardRoom}"/>
+                <p style="color: red" th:if="${#fields.hasErrors('standardRoom')}" th:errors="*{standardRoom}"></p>
+            </div>
+            <div class="form-group">
+                <label for="customerAddress">Enter otherConvenience:</label>
+                <input type="text" id="customerAddress" class="form-control" th:field="*{otherConvenience}"/>
+                <p style="color: red" th:if="${#fields.hasErrors('otherConvenience')}" th:errors="*{otherConvenience}"></p>
+            </div>
+            <div class="form-group">
+                <label for="poolArea">Enter poolArea:</label>
+                <input type="text" id="poolArea" placeholder="poolArea" class="form-control" th:field="*{poolArea}"/>
+                <p style="color: red" th:if="${#fields.hasErrors('poolArea')}" th:errors="*{poolArea}"></p>
+            </div>
+            <div class="form-group">
+                <label for="numOfFloor">Enter numOfFloor:</label>
+                <input type="text" id="numOfFloor" placeholder="numOfFloor" class="form-control"
+                       th:field="*{numOfFloor}"/>
+                <p style="color: red" th:if="${#fields.hasErrors('numOfFloor')}" th:errors="*{numOfFloor}"></p>
+            </div>
+            <div class="form-group">
+                <label for="serviceCode">Enter serviceCode:</label>
+                <input type="text" id="serviceCode" placeholder="serviceCode" class="form-control"
+                       th:field="*{serviceCode}"/>
+                <p style="color: red" th:if="${#fields.hasErrors('serviceCode')}" th:errors="*{serviceCode}"></p>
+            </div>
+            <div class="form-group">
+                <label for="rentType">Choose Rent type:</label>
+                <select id="rentType" th:field="*{rentType}" class="form-control border-primary">
+                    <option value="">--Choose Rent type--</option>
+                    <option th:each="rentType: ${rentTypeList}" th:value="${rentType.id}"
+                            th:text="${rentType.rentTypeName}">
+                    </option>
+                </select>
+            </div>
+            <!--            <input type="hidden" value="1" class="form-control" th:field="*{status}"/>-->
+            <span><button type="submit" class="btn btn-primary">SAVE</button></span>
+            <span><a href="/customer" class="btn btn-danger"><< BACK</a></span>
+        </form>
+    </div>
+</div>
+</body>
+</html>

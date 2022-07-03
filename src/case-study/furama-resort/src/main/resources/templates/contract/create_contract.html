@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="layout :: link-md-boostrap-css"></th:block>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<th:block th:replace="home :: header-nav-bar"></th:block>
+<div class="container col-8 my-5">
+    <form th:action="@{/contract/save}" th:object="${contractDto}"
+          method="POST" class="form-control">
+        <h1 class="text-center" style="font-family: 'Quicksand', serif">Create New Contract</h1>
+        <div class="row mx-auto mb-4 mt-4">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="date" id="formControlDefault" class="form-control" th:field="*{dateStart}"/>
+                        <label class="form-label" for="formControlDefault">dateStart</label>
+                    </div>
+                    <span class="text-danger" th:if="${#fields.hasErrors('dateStart')}" th:errors="*{dateStart}"></span>
+                </div>
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="date" id="formControlDefault1" class="form-control" th:field="*{dateEnd}"/>
+                        <label class="form-label" for="formControlDefault">dateEnd</label>
+                    </div>
+                    <span class="text-danger" th:if="${#fields.hasErrors('dateEnd')}" th:errors="*{dateEnd}"></span>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="form-outline">
+                        <input type="text" id="formControlDefault3" class="form-control" th:field="*{deposit}"/>
+                        <label class="form-label" for="formControlDefault">deposit</label>
+                    </div>
+                    <span class="text-danger" th:if="${#fields.hasErrors('deposit')}" th:errors="*{deposit}"></span>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <select th:field="*{employee}" class="form-select" >
+                        <option value="">--employee--</option>
+                        <option th:each="item :${employees}"
+                                th:value="${item.id}"
+                                th:text="${item.name}">
+                        </option>
+                    </select>
+                    <span class="text-danger" th:if="${#fields.hasErrors('employee')}" th:errors="*{employee}"></span>
+                </div>
+                <div class="col">
+                    <select th:field="*{customer}" class="form-select" >
+                        <option value="">--customer--</option>
+                        <option th:each="item :${customers}"
+                                th:value="${item.id}"
+                                th:text="${item.name}">
+                        </option>
+                    </select>
+                    <span class="text-danger" th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></span>
+                </div>
+                <div class="col">
+                    <select th:field="*{service}" class="form-select" >
+                        <option value="">--service--</option>
+                        <option th:each="item :${facility}"
+                                th:value="${item.id}"
+                                th:text="${item.name}">
+                        </option>
+                    </select>
+                    <span class="text-danger" th:if="${#fields.hasErrors('service')}" th:errors="*{service}"></span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Save</button>
+        </div>
+    </form>
+</div>
+<th:block th:replace="home :: footer-body"></th:block>
+<th:block th:replace="layout :: link-md-boostrap-js"></th:block>
+</body>
+</html>

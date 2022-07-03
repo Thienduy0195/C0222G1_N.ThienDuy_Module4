@@ -2,6 +2,7 @@ package com.duynguyen.furama.model.employee;
 
 import com.duynguyen.furama.model.contract.Contract;
 import com.duynguyen.furama.model.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,6 +26,7 @@ public class Employee {
 
 
     @OneToMany(mappedBy = "employee")
+    @JsonBackReference
     List<Contract> contractList;
 
     @ManyToOne

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="layout :: link-md-boostrap-css"></th:block>
+    <style>
+        a.disable {
+            pointer-events: none;
+            cursor: default;
+        }
+    </style>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<th:block th:replace="home :: header-nav-bar"></th:block>
+<div class="container my-3">
+    <form th:action="@{/customer}" method="get" th:value="${customerDtoJoins}" class="my-2">
+        <div class="col-6">
+            <div class="input-group">
+                <div class="form-outline">
+                    <input class="form-control mr-sm-2 col" id="formControlDefault" aria-label="Search" type="text"
+                           name="name"><label class="form-label" for="formControlDefault">name</label>
+                </div>
+                <div class="form-outline">
+                    <input class="form-control mr-sm-2 col" id="formControlDefault1" aria-label="Search" type="text"
+                           name="customerCode"><label class="form-label" for="formControlDefault1">code</label>
+                </div>
+                <button class="btn btn-light my-2 my-sm-0" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+    <table id="customers" class="table table-striped bg-light ">
+        <thead class="thead-dark bg-info">
+        <tr class="text-center">
+            <h3 class="text-center">Customer Booking</h3>
+        </tr>
+        <tr>
+            <th class="col-1 text-center">No</th>
+            <th class="col-2 text-center">name</th>
+            <th class="col-1 text-center">contractId</th>
+            <th class="col-1 text-center">dateStart</th>
+            <th class="col-1 text-center">dateStart</th>
+            <th class="col-2 text-center">service include</th>
+            <th class="col-1 text-center">cost</th>
+            <th class="text-center">
+                <a th:href="@{/customer/create-customer-booking}">
+                    <button class="btn btn-light my-2 my-sm-0" type="button">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="row,rowStat : ${customerDtoJoins}">
+            <td th:text="${rowStat.count}" class="text-center"></td>
+            <td th:text="${row.name}" class="text-center"></td>
+            <td th:text="${row.contractId}" class="text-center"></td>
+            <td th:text="${row.dateStart}" class="text-center px-0"></td>
+            <td th:text="${row.dateEnd}" class="text-center px-0"></td>
+            <td th:text="${row.getServiceInclude()}" class="text-center px-1"></td>
+            <td th:text="${row.cost}" class="text-center"></td>
+            <td class="px-1 text-center" >
+                <a th:href="@{/customer/editCustomerDto(id=${row.customerId})}">
+                    <button type="button" class="btn btn-warning">
+                        <i class="fas fa-pen-nib"></i>
+                    </button>
+                </a>
+                <button
+                        th:attr="onclick=|deleteModal(${row.customerId},'${row.name}')|"
+                        type="button" class="btn btn-danger" data-mdb-toggle="modal"
+                        data-mdb-target="#exampleModal">
+                    <i class="fas fa-trash"></i>
+                </button>
+                <a th:href="@{/customer/detailCustomerDto(id=${row.customerId})}">
+                    <button type="button" class="btn btn-info">
+                        <i class="far fa-eye"></i>
+                    </button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="row text-center">
+        <div class="col-lg-12">
+            <a th:attr="class=${!customerDtoJoins.hasPrevious() ? 'disable' : ''} "
+               th:href="@{/customer/customer-have-booking/(page=${customerDtoJoins.number-1},keywordName=${keywordName},keywordName=${keywordName},sortVal=${sortVal},dirVal=${dirVal})}">
+                <i class="fas fa-angle-left"></i>
+            </a>
+                            <span th:text="${customerDtoJoins.number+1}"></span>
+                            /
+                            <span th:text="${customerDtoJoins.totalPages}"></span>
+            <a th:attr="class=${!customerDtoJoins.hasNext() ? 'disable' : ''} "
+               th:href="@{/customer/customer-have-booking/(page=${customerDtoJoins.number+1},keywordName=${keywordName},sortVal=${sortVal},,dirVal=${dirVal})}">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">CONFIRM DELETE?</h5>
+                    <button type="button" class="close" data-mdb-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:action="@{/customer/deleteCustomerBooking}" method="post">
+                    <div class="modal-body">
+                        <!--                        <input type="hidden" name="action" value="delete">-->
+                        <input type="hidden" id="id_delete" name="id">
+                        <div id="name_delete"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">NO</button>
+                        <button type="submit" class="btn btn-danger">YES</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="home :: footer-body"></th:block>
+<th:block th:replace="layout :: link-md-boostrap-js"></th:block>
+</body>
+</html>
+<script>
+    function deleteModal(id, name) {
+        document.getElementById("id_delete").value = id;
+        document.getElementById("name_delete").innerText = "Name: " + name;
+    }
+</script>

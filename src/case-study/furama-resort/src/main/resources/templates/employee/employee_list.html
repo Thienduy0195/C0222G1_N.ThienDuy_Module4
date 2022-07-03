@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="layout :: link-md-boostrap-css"></th:block>
+    <style>
+        a.disable {
+            pointer-events: none;
+            cursor: default;
+        }
+    </style>
+    <style>
+        .more {
+            cursor: pointer;
+            border: none;
+            background: transparent;
+        }
+
+        .more span {
+            display: block;
+            width: .25rem;
+            height: .25rem;
+            background: #363636;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .more span:not(:last-child) {
+            margin-bottom: .125rem;
+        }
+
+        .dropout {
+            z-index: 9001;
+            width: fit-content;
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .dropout ul {
+            position: absolute;
+            top: -1.1rem;
+            right: 1.5rem;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.12s ease;
+        }
+
+        .dropout.active ul {
+            padding: 5px;
+            background-color: white;
+            transform: scaleX(1);
+            border-radius: 5px;
+            min-width: 100px;
+        }
+
+        .dropout.active li {
+            padding: 5px;
+        }
+    </style>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<th:block th:replace="home :: header-nav-bar"></th:block>
+<div class="container">
+    <form th:action="@{/employee}" method="get" th:value="${employees}">
+        <div class="input-group m-3 col-7">
+            <div class="form-outline col-2">
+                <input class="form-control mr-sm-2 col" id="formControlDefault" aria-label="Search" type="text"
+                       name="name"><label class="form-label" for="formControlDefault">name</label>
+            </div>
+            <div class="col-1">
+                <select name="position" class="form-select">
+                    <option value="%" class="dropdown-item">
+                                position
+                    </option>
+                    <option th:each="item :${position}"
+                            th:value="${item.positionId}"
+                            th:text="${item.positionName}"
+                            class="dropdown-item">
+                    </option>
+                </select>
+<!--                <input type="text" list="mylist1" placeholder="Choose Position">-->
+<!--                <datalist  name="position" id="mylist1">-->
+<!--                    <option value="%" class="dropdown-item">-->
+<!--                        position-->
+<!--                    </option>-->
+<!--                    <option th:each="item :${position}"-->
+<!--                            th:value="${item.positionId}"-->
+<!--                            th:text="${item.positionName}">-->
+<!--                    </option>-->
+<!--                </datalist>-->
+            </div>
+<!--            <div class="btn-group shadow-0">-->
+<!--                <button type="button" class="btn btn-light dropdown-toggle" data-mdb-toggle="dropdown"-->
+<!--                        aria-expanded="false">-->
+<!--                    Postion-->
+<!--                </button>-->
+<!--                <ul class="dropdown-menu" >-->
+<!--                    <li class="dropdown-item" th:each="item :${position}"-->
+<!--                        th:value="${item.positionId}"-->
+<!--                        th:text="${item.positionName}"-->
+<!--                        class="dropdown-item"></li>-->
+<!--                </ul>-->
+<!--            </div>-->
+            <div class="col-1">
+                <select name="division" class="form-select">
+                    <option value="%">division</option>
+                    <option th:each="item :${division}"
+                            th:value="${item.divisionId}"
+                            th:text="${item.divisionName}">
+                    </option>
+                </select>
+            </div>
+            <div class="col-1">
+                <select name="educationDegree" class="form-select">
+                    <option value="%">education</option>
+                    <option th:each="item :${education}"
+                            th:value="${item.eduDegreeId}"
+                            th:text="${item.eduDegreeName}">
+                    </option>
+                </select>
+            </div>
+            <button class="btn btn-light my-2 my-sm-0" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+        <div class="input-group m-3 col-5">
+            <div class="col-1">
+                <select name="sort" class="form-control">
+                    <option value="name">name</option>
+                </select>
+            </div>
+            <div class="col-1">
+                <select name="dir" class="form-control">
+                    <option value="asc">asc</option>
+                    <option value="desc">desc</option>
+                </select>
+            </div>
+            <button class="btn btn-dark my-2 my-sm-0" type="submit">
+                sort
+            </button>
+        </div>
+    </form>
+
+    <form th:action="@{/employee/delete_check}" th:object="${employees}" method="get">
+        <table id="customers" class="table table-striped bg-light ">
+            <thead class="thead-dark bg-info">
+            <tr>
+                <th class="col-1 text-center">Name</th>
+                <th class="col-1 text-center">Phone</th>
+                <th class="col-1 text-center">id card</th>
+                <th class="col-1 text-center">email</th>
+                <th class="col-1 text-center">position</th>
+                <th class="col-1 text-center">division</th>
+                <th class="col-1 text-center">education</th>
+                <th class="col-1 text-center">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </th>
+                <th class="col-1 text-center">
+                    <a th:href="@{/employee/goCreate}">
+                        <button class="btn btn-light my-2 my-sm-0" type="button">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </a>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row,rowStat : ${employees}">
+                <!--        <td th:text="${rowStat.count}"></td>-->
+                <td th:text="${row.name}" class="col-1 text-center px-1"></td>
+                <td th:text="${row.phone}" class="col-1 text-center px-0"></td>
+                <td th:text="${row.idCard}" class="col-1 text-center px-0"></td>
+                <td th:text="${row.email}" class="col-1 text-center px-1"></td>
+                <td th:text="${row.position.positionName}" class="col-1 text-center px-0"></td>
+                <td th:text="${row.division.divisionName}" class="col-1 text-center px-0"></td>
+                <td th:text="${row.educationDegree.eduDegreeName}" class="col-1 text-center px-0"></td>
+                <td class="text-center">
+                    <input type="checkbox" name="cid" th:value="${row.id}"/>
+                </td>
+                <td>
+                    <div class="dropout">
+                        <button class="more" type="button">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </button>
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a th:href="@{/employee/edit(id=${row.id})}">
+                                    <button type="button" class="btn btn-warning">
+                                        <i class="fas fa-pen-nib"></i>
+                                    </button>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <button th:attr="onclick=|deleteModal(${row.id}, '${row.name}')|"
+                                        type="button" class="btn btn-danger" data-mdb-toggle="modal"
+                                        data-mdb-target="#exampleModal">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <a th:href="@{/employee/detail(id=${row.id})}">
+                                    <button type="button" class="btn btn-info">
+                                        <i class="far fa-eye"></i>
+                                    </button>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    <div class="row text-center">
+        <div class="col-lg-12 ">
+            <a th:attr="class=${!employees.hasPrevious() ? 'disable' : ''} "
+               th:href="@{/employee/(page=${employees.number-1},
+           name=${keywordName},
+           position=${positionKey},
+           division=${divisionKey},
+           educationDegree=${educationDegreeKey},
+           sort=${sortVal},
+           dir=${dirVal})}">
+                <i class="fas fa-angle-left"></i>
+            </a>
+            <span th:text="${employees.number+1}"></span>
+            /
+            <span th:text="${employees.totalPages}"></span>
+            <a th:attr="class=${!employees.hasNext() ? 'disable' : ''} "
+               th:href="@{/employee/(page=${employees.number+1},
+           name=${keywordName},
+           position=${positionKey},
+           division=${divisionKey},
+           educationDegree=${educationDegreeKey},
+           sort=${sortVal},
+           dir=${dirVal})}">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">CONFIRM DELETE?</h5>
+                    <button type="button" class="close" data-mdb-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:action="@{/employee/delete}" method="post">
+                    <div class="modal-body">
+                        <input type="hidden" id="id_delete" name="id">
+                        <div id="name_delete"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">NO</button>
+                        <button type="submit" class="btn btn-danger">YES</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<th:block th:replace="home :: footer-body"></th:block>
+<th:block th:replace="layout :: link-md-boostrap-js"></th:block>
+</body>
+</html>
+<script>
+    function deleteModal(id, name) {
+        document.getElementById("id_delete").value = id;
+        document.getElementById("name_delete").innerText = "Name: " + name;
+    }
+
+    document.querySelector('table').onclick = ({
+                                                   target
+                                               }) => {
+        if (!target.classList.contains('more')) return
+        document.querySelectorAll('.dropout.active').forEach(
+            (d) => d !== target.parentElement && d.classList.remove('active')
+        )
+        target.parentElement.classList.toggle('active')
+    }
+</script>
+

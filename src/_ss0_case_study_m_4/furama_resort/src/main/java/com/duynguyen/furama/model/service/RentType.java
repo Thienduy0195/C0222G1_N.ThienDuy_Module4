@@ -1,5 +1,7 @@
 package com.duynguyen.furama.model.service;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,6 +15,7 @@ public class RentType {
     private String rentTypeCost;
 
     @OneToMany(mappedBy = "rentType")
+    @JsonBackReference
     private List<Service> services;
 
     public RentType() {

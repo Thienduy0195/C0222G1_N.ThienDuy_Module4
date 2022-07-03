@@ -1,5 +1,7 @@
 package com.duynguyen.furama.model.employee;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,6 +16,7 @@ public class Position {
     private String positionName;
 
     @OneToMany(mappedBy = "position")
+    @JsonBackReference
     private List<Employee> employees;
 
     public List<Employee> getEmployees() {

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>CUSTOMER MANAGEMENT</title>
+    <link rel="stylesheet" type="text/css" th:href="@{bootstrap/bootstrap/css/bootstrap.min.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container-fluid border col-12 " style="width: 100%; padding: 0 0; background-color: #dae0e5">
+
+    <nav class="navbar navbar-expand-lg p-2 my-0 col ">
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-black-50" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black-50" href="/employee">Employee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black-50" href="/customer">Customer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black-50" href="/facility">Service</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black-50" href="#">Contract</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="#" method="get">
+                <input type="hidden" name="action" value="search">
+                <input class="form-control mr-sm-2" placeholder="Enter facility's name" type="text"
+                       name="customerName">
+                <button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div align="center">
+        <table class="table table-striped " id="tableFacility"
+               style="border-color: #a71d2a; margin: 0; background-color: white">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>AREA</th>
+                <th>COST</th>
+                <th>MAX PAX</th>
+                <th>ROOM STANDARD</th>
+<!--                <th>otherConvenience</th>-->
+<!--                <th>poolArea</th>-->
+                <th>serviceType</th>
+                <th>rentType</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row,rowStat : ${facilityList}">
+                <td th:text="${row.id}"></td>
+                <td th:text="${row.name}"></td>
+                <td th:text="${row.area}"></td>
+                <td th:text="${row.cost}"></td>
+                <td th:text="${row.maxPeople}"></td>
+                <td th:text="${row.standardRoom}"></td>
+<!--                <td th:text="${row.otherConvenience}"></td>-->
+<!--                <td th:text="${row.poolArea}"></td>-->
+                <td th:text="${row.serviceType.name}"></td>
+                <td th:text="${row.rentType.rentTypeName}"></td>
+                <td><a class="btn btn-primary" th:href="@{/facility/{id}/edit(id=${row.id})}">EDIT</a></td>
+                <td>
+                    <a id="deleteItem" type="button" class="btn btn-danger deleteCustomer" th:href="${row.id}"
+                       data-toggle="modal" data-target="#exampleModalCenter">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+    <span>
+        <a th:if = "${facilityList.hasPrevious()}" th:href="@{/facility(page = ${facilityList.number - 1})}">Previous</a>
+    </span>
+            <span th:each="pageNo: ${#numbers.sequence(0,facilityList.totalPages - 1)}">
+        <a th:href="@{/facility(page = ${pageNo})}" th:text="${pageNo}"></a>
+    </span>
+            <span>
+        <a th:if = "${facilityList.hasNext()}" th:href="@{/facility(page = ${facilityList.number +1})}">Next</a>
+    </span>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="confirmDelete" method="post" th:action="@{/facility/delete}">
+                        <div class="modal-body">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" id="id_delete" name="id">
+                            <div id="name_delete"></div>
+<!--                            <div id="email_delete"></div>-->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                            <button type="submit" class="btn btn-danger delete">YES</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a th:href="@{/facility/goCreate}" target="_blank">
+        <button type="button" class="btn btn-primary">Create New</button>
+    </a>
+    <p style="font-size: 2em; color: green" th:text="${message}"></p>
+
+    <script src="jquery/jquery-3.5.1.min.js"></script>
+    <script src="bootstrap\bootstrap\js\bootstrap.min.js"></script>
+</div>
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+        $('#tableFacility').on("click", ".deleteCustomer", function (event) {
+            //lay du lieu
+            let a = $(this);
+            let id = a.attr("href");
+            // goi ajax
+            $.ajax({
+                type: "GET",
+                //tên API
+                url: `/api/facility/${id}`,
+                success: function (data) {
+                    // console.log(data)
+                    showInfoDelete(data)
+                }
+            });
+            //chặn sự kiện mặc định của thẻ
+            event.preventDefault();
+        });
+    })
+
+    function showInfoDelete(item) {
+        document.getElementById("id_delete").value = item.id;
+        document.getElementById("name_delete").innerText = "Do you want to delete " + item.name + "?";
+    }
+</script>

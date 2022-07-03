@@ -2,6 +2,7 @@ package com.duynguyen.furama.model.user;
 
 
 import com.duynguyen.furama.model.employee.Employee;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -17,6 +18,7 @@ public class User {
 
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Employee> employees;
 
     public User() {

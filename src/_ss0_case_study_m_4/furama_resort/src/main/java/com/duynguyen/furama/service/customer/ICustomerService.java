@@ -1,6 +1,5 @@
 package com.duynguyen.furama.service.customer;
 
-
 import com.duynguyen.furama.model.customer.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,8 +23,6 @@ public interface ICustomerService {
 
     List<Customer> findAll();
 
-    Page<Customer> findAllByNameCodeType(String keywordName, String keywordCode, String keywordType, Pageable pageable);
-
     List<String> getEmail();
 
     List<String> getPhone();
@@ -33,4 +30,5 @@ public interface ICustomerService {
     List<String> getIdCard();
 
     Page<Customer> findAllPageable(Pageable pageable);
+
 }

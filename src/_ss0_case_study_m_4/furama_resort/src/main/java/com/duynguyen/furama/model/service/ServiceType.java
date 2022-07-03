@@ -1,5 +1,7 @@
 package com.duynguyen.furama.model.service;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class ServiceType {
     private String name;
 
     @OneToMany(mappedBy = "serviceType")
+    @JsonBackReference
     private List<Service> services;
 
     public ServiceType() {

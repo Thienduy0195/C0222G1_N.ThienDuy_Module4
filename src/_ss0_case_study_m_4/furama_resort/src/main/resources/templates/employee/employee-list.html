@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>EMPLOYEE MANAGEMENT</title>
+    <link rel="stylesheet" type="text/css" th:href="@{bootstrap/bootstrap/css/bootstrap.min.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="container-fluid border col-12 " style="width: 100%; padding: 0 0; background-color: #dae0e5">
+
+    <nav class="navbar navbar-expand-lg p-2 my-0 col ">
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link text-black-50" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black-50" href="/employee">Employee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black-50" href="/customer">Customer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black-50" href="/facility">Service</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-black-50" href="#">Contract</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="/customer" method="get">
+                <input type="hidden" name="action" value="search">
+                <input class="form-control mr-sm-2" placeholder="Enter customer's name" type="text"
+                       name="customerName">
+                <button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div align="center">
+        <table class="table table-striped " id="tableCustomer"
+               style="border-color: #a71d2a; margin: 0; background-color: white">
+            <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Birth Day</th>
+                <th>Id Card</th>
+                <th>Salary</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+                <th>Address</th>
+                <!--                <th>Position</th>-->
+                <!--                <th>Division</th>-->
+                <!--                <th>Education</th>-->
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody id="customerList">
+            <tr th:each="row,rowStat : ${employeeList}">
+                <td th:text="${row.id}"></td>
+                <td th:text="${row.name}"></td>
+                <td th:text="${row.birthDay}"></td>
+                <td th:text="${row.idCard}"></td>
+                <td th:text="${row.salary}"></td>
+                <td th:text="${row.phone}"></td>
+                <td th:text="${row.email}"></td>
+                <td th:text="${row.address}"></td>
+                <!--                <td th:text="${row.position.positionName}"></td>-->
+                <!--                <td th:text="${row.division.divisionName}"></td>-->
+                <!--                <td th:text="${row.educationDegree.eduDegreeName}"></td>-->\
+                <!--                <td><a class="btn btn-primary" th:href="@{/employee/edit/{id}(id=${row.getId()})}">EDIT</a></td>-->
+                <td>
+                    <a id="editItem" type="button" class="btn btn-primary- editEmployee" th:href="${row.id}"
+                       data-toggle="modal" data-target="#modalEdit">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                </td>
+                <td>
+                    <a id="deleteItem" type="button" class="btn btn-danger deleteCustomer" th:href="${row.id}"
+                       data-toggle="modal" data-target="#exampleModalCenter">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div>
+    <span>
+        <a th:if="${employeeList.hasPrevious()}" th:href="@{/employee(page = ${employeeList.number - 1})}">Previous</a>
+    </span>
+            <span th:each="pageNo: ${#numbers.sequence(0,employeeList.totalPages - 1)}">
+        <a th:href="@{/employee(page = ${pageNo})}" th:text="${pageNo}"></a>
+    </span>
+            <span>
+        <a th:if="${employeeList.hasNext()}" th:href="@{/employee(page = ${employeeList.number +1})}">Next</a>
+    </span>
+        </div>
+
+        <!-- Modal Edit -->
+        <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">EDIT EMPLOYEE</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form id="updateEmployee" method="post" th:action="@{/employee/update}">
+                        <div class="modal-body" id="modalEdit-body">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"
+                                    onclick="saveEditEmployee()">Edit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Delete -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="confirmDelete" method="post" th:action="@{/employee/delete}">
+                    <div class="modal-body">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" id="id_delete" name="id">
+                        <div id="name_delete"></div>
+                        <div id="email_delete"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                        <button type="submit" class="btn btn-danger delete">YES</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a th:href="@{/employee/create}" target="_blank">
+    <button type="button" class="btn btn-primary">Create New</button>
+</a>
+<p style="font-size: 2em; color: green" th:text="${message}"></p>
+<script src="jquery/jquery-3.5.1.min.js"></script>
+<script src="bootstrap\bootstrap\js\bootstrap.min.js"></script>
+</div>
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+
+        $('#tableCustomer').on("click", ".editEmployee", function (event) {
+            let a = $(this);
+            let smartphoneId = a.attr("href");
+            $.ajax({
+                type: "GET",
+                url: `/api/employee/${smartphoneId}`,
+                success: function (data) {
+                    console.log(data);
+                    let content = getEditEmployee(data, getPositionList());
+                    document.getElementById('modalEdit-body').innerHTML = content;
+                    $('#modalEdit').modal("show");
+
+                }
+            });
+            event.preventDefault();
+        });
+
+
+        function getEditEmployee(employee, positionList) {
+            return `<input type="hidden" id="id" value="${employee.id}"/>
+          <select id="position" class="form-control border-primary">
+            </select>
+        <div class="form-group">
+            <label for="position">POSITION:</label>
+            <input type="text" id="position" value="${employee.position.positionName}" readonly/>
+        </div>
+        <div class="form-group">
+            <label for="division">DIVISION:</label>
+            <input type="text" id="division" value="${employee.division.divisionName}" readonly/>
+        </div>
+        <div class="form-group">
+            <label for="education">EDUCATION DEGREE:</label>
+            <input type="text" id="education" value="${employee.educationDegree.eduDegreeName}" readonly/>
+        </div>
+        <div>
+            <label>EMPLOYEE NAME</label>
+            <input type="text" id="name" value="${employee.name}"/>
+        </div>
+        <div>
+            <label>EMPLOYEE BIRTHDAY</label>
+            <input type="date" id="birthDay" value="${employee.birthDay}"/>
+        </div>
+        <div>
+            <label>EMPLOYEE ID CARD</label>
+            <input type="text" id="idCard" value="${employee.idCard}"/>
+        </div>
+        <div>
+            <label>EMPLOYEE SALARY</label>
+            <input type="text" id="salary" value="${employee.salary}"/>
+        </div>
+        <div>
+            <label>EMPLOYEE PHONE</label>
+            <input type="text" id="phone" value="${employee.phone}"/>
+        </div>
+        <div>
+            <label>EMPLOYEE EMAIL</label>
+            <input type="text" id="email" value="${employee.email}"/>
+        </div>
+        <div>
+            <label>EMPLOYEE ADDRESS</label>
+            <input type="text" id="address" value="${employee.address}"/>
+        </div>`
+
+        }
+
+        $('#tableCustomer').on("click", ".deleteCustomer", function (event) {
+            //lay du lieu
+            let a = $(this);
+            let id = a.attr("href");
+            // goi ajax
+            $.ajax({
+                type: "GET",
+                //tên API
+                url: `/api/employee/${id}`,
+                //CHƯA LÀM REST CONTROLLER
+                success: function (data) {
+                    console.log(data)
+                    showInfoDelete(data)
+                }
+            });
+            //chặn sự kiện mặc định của thẻ
+            event.preventDefault();
+        });
+
+        function getPositionList() {
+            $.ajax({
+                type: "GET",
+                url: `/api/employee/get-position`,
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+            event.preventDefault();
+        }
+
+        function showInfoDelete(item) {
+            document.getElementById("id_delete").value = item.id;
+            document.getElementById("name_delete").innerText = "Do you want to delete " + item.name + "?";
+            document.getElementById("email_delete").innerText = "Email: " + item.email;
+        }
+
+        function render(position) {
+            let content = ``;
+            for (let i = 0; i < position.length; i++) {
+                content += getSmartphone(position[i]);
+            }
+            document.getElementById('smartphoneList').innerHTML = content;
+            return `<option value="${position.positionName}">
+
+                </option>`;
+        }
+
+
+    })
+</script>

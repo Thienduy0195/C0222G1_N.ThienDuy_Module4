@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:replace="layout :: link-md-boostrap-css"></th:block>
+    <style>
+        a.disable {
+            pointer-events: none;
+            cursor: default;
+        }
+    </style>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<th:block th:replace="home :: header-nav-bar"></th:block>
+<div class="container col-10 my-5">
+    <!--    <form th:action="@{/contract}" method="get" th:value="${contracts}">-->
+    <!--        <div class="input-group">-->
+    <!--            <input class="form-control mr-sm-2" aria-label="Search" placeholder="name"-->
+    <!--                   type="text"-->
+    <!--                   name="name">-->
+    <!--            <input class="form-control mr-sm-2" aria-label="Search" placeholder="code"-->
+    <!--                   type="text"-->
+    <!--                   name="customerCode">-->
+    <!--            <button class="btn btn-light my-2 my-sm-0" type="submit">-->
+    <!--                <i class="fas fa-search"></i>-->
+    <!--            </button>-->
+    <!--        </div>-->
+    <!--        <div class="input-group">-->
+    <!--            <select name="sort" class="form-control">-->
+    <!--                <option value="name">name</option>-->
+    <!--            </select >-->
+    <!--            <select name="dir" class="form-control">-->
+    <!--                <option value="asc">asc</option>-->
+    <!--                <option value="desc">desc</option>-->
+    <!--            </select>-->
+    <!--            <button class="btn btn-dark my-2 my-sm-0" type="submit">-->
+    <!--                sort-->
+    <!--            </button>-->
+    <!--        </div>-->
+    <!--    </form>-->
+    <!--</div>-->
+    <table id="customers" class="table table-striped bg-light ">
+        <thead class="thead-dark bg-info">
+        <tr class="text-center">
+            <h3 class="text-center">Contract Detail</h3>
+        </tr>
+        <tr>
+            <th class="col-1">No</th>
+            <th class="col-1">Quantity</th>
+            <th class="col-1">contract id</th>
+            <th class="col-1">attachService</th>
+            <th class="col-1">cost</th>
+            <th class="col-2 text-center">
+                <a th:href="@{/contractDetail/goCreate}">
+                    <button class="btn btn-light my-2 my-sm-0" type="button">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="row,rowStat : ${contractDetail}">
+            <td th:text="${rowStat.count}"></td>
+            <td th:text="${row.quantity}"></td>
+            <td th:text="${row.contract.id}"></td>
+            <td th:text="${row.attachService.name}"></td>
+            <td th:text="${row.attachService.cost}"></td>
+            <td class="px-1 text-center">
+                <a th:href="@{/contractDetail/edit(id=${row.id})}">
+                    <button type="button" class="btn btn-warning">
+                        <i class="fas fa-pen-nib"></i>
+                    </button>
+                </a>
+                <button
+                        th:attr="onclick=|deleteModal(${row.id})|"
+                        type="button" class="btn btn-danger" data-mdb-toggle="modal"
+                        data-mdb-target="#exampleModal">
+                    <i class="fas fa-trash"></i>
+                </button>
+                <a th:href="@{/contractDetail/detail(id=${row.id})}">
+                    <button type="button" class="btn btn-info">
+                        <i class="far fa-eye"></i>
+                    </button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="row text-center">
+        <div class="col-lg-12">
+            <a th:attr="class=${!contractDetail.hasPrevious() ? 'disable' : ''} "
+               th:href="@{/contractDetail/(page=${contractDetail.number-1},sort=${sortVal},dir=${dirVal})}">
+                <i class="fas fa-angle-left"></i>
+            </a>
+                            <span th:text="${contractDetail.number+1}"></span>
+                            /
+                            <span th:text="${contractDetail.totalPages}"></span>
+            <a th:attr="class=${!contractDetail.hasNext() ? 'disable' : ''} "
+               th:href="@{/contractDetail/(page=${contractDetail.number+1},sort=${sortVal},dir=${dirVal})}">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">CONFIRM DELETE?</h5>
+                    <button type="button" class="close" data-mdb-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:action="@{/contractDetail/delete}" method="post">
+                    <div class="modal-body">
+                        <!--                        <input type="hidden" name="action" value="delete">-->
+                        <input type="hidden" id="id_delete" name="id">
+                        <div id="name_delete"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">NO</button>
+                        <button type="submit" class="btn btn-danger">YES</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>
+<th:block th:replace="home :: footer-body"></th:block>
+<th:block th:replace="layout :: link-md-boostrap-js"></th:block>
+</body>
+</html>
+<script>
+    function deleteModal(id) {
+        document.getElementById("id_delete").value = id;
+        // document.getElementById("name_delete").innerText = "Name: " + name;
+    }
+</script>

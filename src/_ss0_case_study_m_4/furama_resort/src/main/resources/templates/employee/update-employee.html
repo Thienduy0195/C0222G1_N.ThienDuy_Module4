@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/customer/layout :: head"></head>
+<body>
+<h3>UPDATING EMPLOYEE</h3>
+<p>
+    <a th:href="@{/employee}">
+        BACK TO EMPLOYEE LIST
+    </a>
+</p>
+<div id="form">
+    <form action="#" th:action="@{/employee/update}" th:object="${employeeDto}"
+          method="POST" novalidate="novalidate">
+        <input type="hidden" th:field="*{id}"/>
+        <div class="form-group">
+            <label for="position">CHOOSE POSITION:</label>
+            <select id="position" th:field="*{position}" class="form-control border-primary">
+                <option th:each="position: ${positionList}" th:value="${position.positionId}" th:text="${position.positionName}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="division">CHOOSE DIVISION:</label>
+            <select id="division" th:field="*{division}" class="form-control border-primary">
+                <option th:each="division: ${divisionList}" th:value="${division.divisionId}" th:text="${division.divisionName}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="customerTypeId">CHOOSE EDUCATION DEGREE:</label>
+            <select id="customerTypeId" th:field="*{educationDegree}" class="form-control border-primary">
+                <option th:each="education: ${educationList}" th:value="${education.eduDegreeId}" th:text="${education.eduDegreeName}">
+                </option>
+            </select>
+        </div>
+        <div>
+            <label>EMPLOYEE NAME</label>
+            <input type="text" th:field="*{name}"/>
+            <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        </div>
+        <div>
+            <label>EMPLOYEE BIRTHDAY</label>
+            <input type="date" th:field="*{birthDay}"/>
+            <p class="text-danger" th:if="${#fields.hasErrors('birthDay')}" th:errors="*{birthDay}"></p>
+        </div>
+        <div>
+            <label>EMPLOYEE ID CARD</label>
+            <input type="text" th:field="*{idCard}"/>
+            <p class="text-danger" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></p>
+        </div>
+        <div>
+            <label>EMPLOYEE SALARY</label>
+            <input type="text" th:field="*{salary}"/>
+            <p class="text-danger" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></p>
+        </div>
+        <div>
+            <label>EMPLOYEE PHONE</label>
+            <input type="text" th:field="*{phone}"/>
+            <p class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+        </div>
+        <div>
+            <label>EMPLOYEE EMAIL</label>
+            <input type="text" th:field="*{email}"/>
+            <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+        </div>
+        <div>
+            <label>EMPLOYEE ADDRESS</label>
+            <input type="text" th:field="*{address}"/>
+        </div>
+        <input type="submit" value="Edit"/>
+    </form>
+</div>
+<footer th:replace="/customer/layout :: footer"></footer>
+</body>
+</html>

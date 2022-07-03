@@ -53,16 +53,8 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public Page<Customer> findAllByNameCodeType(String keywordName, String keywordCode, String keywordType, Pageable pageable) {
-        return null;
-//        return this.iCustomerRepository.findAllByNameCodeType("%" + keywordName + "%", "%" + keywordCode + "%", keywordType, pageable);
-    }
-
-
-    @Override
     public List<String> getCustomerCode() {
-        return null;
-//        return this.iCustomerRepository.getCustomerCode();
+        return this.iCustomerRepository.getCustomerCode();
     }
 
     @Override
@@ -82,7 +74,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Page<Customer> findAllPageable(Pageable pageable) {
-        return this.iCustomerRepository.findAll(pageable);
+        return this.iCustomerRepository.findAllPageable(pageable);
     }
 
 
