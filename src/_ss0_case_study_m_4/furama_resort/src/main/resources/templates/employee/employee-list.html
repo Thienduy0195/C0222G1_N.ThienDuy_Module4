@@ -4,6 +4,14 @@
     <title>EMPLOYEE MANAGEMENT</title>
     <link rel="stylesheet" type="text/css" th:href="@{bootstrap/bootstrap/css/bootstrap.min.css}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <style>
+        #form {
+            width: 500px;
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid border col-12 " style="width: 100%; padding: 0 0; background-color: #dae0e5">
@@ -29,7 +37,7 @@
             </ul>
             <form class="form-inline my-2 my-lg-0" action="/customer" method="get">
                 <input type="hidden" name="action" value="search">
-                <input class="form-control mr-sm-2" placeholder="Enter customer's name" type="text"
+                <input class="form-control mr-sm-2" placeholder="Enter employee's name" type="text"
                        name="customerName">
                 <button class="btn btn-light my-2 my-sm-0" type="submit">Search</button>
             </form>
@@ -67,7 +75,7 @@
                 <td th:text="${row.address}"></td>
                 <!--                <td th:text="${row.position.positionName}"></td>-->
                 <!--                <td th:text="${row.division.divisionName}"></td>-->
-                <!--                <td th:text="${row.educationDegree.eduDegreeName}"></td>-->\
+                <!--                <td th:text="${row.educationDegree.eduDegreeName}"></td>-->
                 <!--                <td><a class="btn btn-primary" th:href="@{/employee/edit/{id}(id=${row.getId()})}">EDIT</a></td>-->
                 <td>
                     <a id="editItem" type="button" class="btn btn-primary- editEmployee" th:href="${row.id}"
@@ -108,16 +116,78 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form id="updateEmployee" method="post" th:action="@{/employee/update}">
-                        <div class="modal-body" id="modalEdit-body">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-warning" data-dismiss="modal"
-                                    onclick="saveEditEmployee()">Edit
-                            </button>
-                        </div>
-                    </form>
+                    <div id="form">
+                        <form id="updateEmployee" method="post">
+                            <div class="modal-body" id="modalEdit-body">
+                                <input type="hidden" id="id"/>
+                                <div class="form-group">
+                                    <label for="position">CHOOSE POSITION:</label>
+                                    <select id="position" class="form-control border-primary">
+                                        <option th:each="position: ${positionList}" th:value="${position.positionId}"
+                                                th:text="${position.positionName}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="division">CHOOSE DIVISION:</label>
+                                    <select id="division" class="form-control border-primary">
+                                        <option th:each="division: ${divisionList}" th:value="${division.divisionId}"
+                                                th:text="${division.divisionName}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="educationDegree">CHOOSE EDUCATION DEGREE:</label>
+                                    <select id="educationDegree" class="form-control border-primary">
+                                        <option th:each="education: ${educationList}"
+                                                th:value="${education.eduDegreeId}"
+                                                th:text="${education.eduDegreeName}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="name">EMPLOYEE NAME</label>
+                                    <input type="text" id="name"/>
+                                    <!--                                <p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>-->
+                                </div>
+                                <div>
+                                    <label>EMPLOYEE BIRTHDAY</label>
+                                    <input type="date" id="birthDay"/>
+                                    <!--                                <p class="text-danger" th:if="${#fields.hasErrors('birthDay')}" th:errors="*{birthDay}"></p>-->
+                                </div>
+                                <div>
+                                    <label>EMPLOYEE ID CARD</label>
+                                    <input type="text" id="idCard"/>
+                                    <!--                                <p class="text-danger" th:if="${#fields.hasErrors('idCard')}" th:errors="*{idCard}"></p>-->
+                                </div>
+                                <div>
+                                    <label>EMPLOYEE SALARY</label>
+                                    <input type="text" id="salary"/>
+                                    <!--                                <p class="text-danger" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}"></p>-->
+                                </div>
+                                <div>
+                                    <label>EMPLOYEE PHONE</label>
+                                    <input type="text" id="phone"/>
+                                    <!--                                <p class="text-danger" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>-->
+                                </div>
+                                <div>
+                                    <label>EMPLOYEE EMAIL</label>
+                                    <input type="text" id="email"/>
+                                    <!--                                <p class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>-->
+                                </div>
+                                <div>
+                                    <label>EMPLOYEE ADDRESS</label>
+                                    <input type="text" id="address"/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-warning" data-dismiss="modal"
+                                        onclick="saveEditEmployee()">Edit
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -162,71 +232,36 @@
 </html>
 
 <script>
+
     $(document).ready(function () {
 
         $('#tableCustomer').on("click", ".editEmployee", function (event) {
             let a = $(this);
-            let smartphoneId = a.attr("href");
+            let id = a.attr("href");
             $.ajax({
                 type: "GET",
-                url: `/api/employee/${smartphoneId}`,
+                url: `/api/employee/${id}`,
                 success: function (data) {
-                    console.log(data);
-                    let content = getEditEmployee(data, getPositionList());
-                    document.getElementById('modalEdit-body').innerHTML = content;
+                    loadDataUpdate(data)
+                    // console.log(data);
                     $('#modalEdit').modal("show");
-
                 }
             });
             event.preventDefault();
         });
 
-
-        function getEditEmployee(employee, positionList) {
-            return `<input type="hidden" id="id" value="${employee.id}"/>
-          <select id="position" class="form-control border-primary">
-            </select>
-        <div class="form-group">
-            <label for="position">POSITION:</label>
-            <input type="text" id="position" value="${employee.position.positionName}" readonly/>
-        </div>
-        <div class="form-group">
-            <label for="division">DIVISION:</label>
-            <input type="text" id="division" value="${employee.division.divisionName}" readonly/>
-        </div>
-        <div class="form-group">
-            <label for="education">EDUCATION DEGREE:</label>
-            <input type="text" id="education" value="${employee.educationDegree.eduDegreeName}" readonly/>
-        </div>
-        <div>
-            <label>EMPLOYEE NAME</label>
-            <input type="text" id="name" value="${employee.name}"/>
-        </div>
-        <div>
-            <label>EMPLOYEE BIRTHDAY</label>
-            <input type="date" id="birthDay" value="${employee.birthDay}"/>
-        </div>
-        <div>
-            <label>EMPLOYEE ID CARD</label>
-            <input type="text" id="idCard" value="${employee.idCard}"/>
-        </div>
-        <div>
-            <label>EMPLOYEE SALARY</label>
-            <input type="text" id="salary" value="${employee.salary}"/>
-        </div>
-        <div>
-            <label>EMPLOYEE PHONE</label>
-            <input type="text" id="phone" value="${employee.phone}"/>
-        </div>
-        <div>
-            <label>EMPLOYEE EMAIL</label>
-            <input type="text" id="email" value="${employee.email}"/>
-        </div>
-        <div>
-            <label>EMPLOYEE ADDRESS</label>
-            <input type="text" id="address" value="${employee.address}"/>
-        </div>`
-
+        function loadDataUpdate(data) {
+            document.getElementById("id").value = data.id;
+            document.getElementById("name").value = data.name
+            // document.getElementById("position1").value = data.position.positionName
+            // document.getElementById("division").innerHTML = data.division
+            // document.getElementById("educationDegree").innerHTML = data.educationDegree;
+            document.getElementById("birthDay").value = data.birthDay
+            document.getElementById("idCard").value = data.idCard
+            document.getElementById("salary").value = data.salary
+            document.getElementById("phone").value = data.phone
+            document.getElementById("email").value = data.email
+            document.getElementById("address").value = data.address
         }
 
         $('#tableCustomer').on("click", ".deleteCustomer", function (event) {
@@ -248,16 +283,7 @@
             event.preventDefault();
         });
 
-        function getPositionList() {
-            $.ajax({
-                type: "GET",
-                url: `/api/employee/get-position`,
-                success: function (data) {
-                    console.log(data);
-                }
-            });
-            event.preventDefault();
-        }
+
 
         function showInfoDelete(item) {
             document.getElementById("id_delete").value = item.id;
@@ -265,17 +291,94 @@
             document.getElementById("email_delete").innerText = "Email: " + item.email;
         }
 
-        function render(position) {
-            let content = ``;
-            for (let i = 0; i < position.length; i++) {
-                content += getSmartphone(position[i]);
-            }
-            document.getElementById('smartphoneList').innerHTML = content;
-            return `<option value="${position.positionName}">
-
-                </option>`;
-        }
-
-
     })
+
+    function successHandler(data) {
+        debugger
+        let content = '';
+        for (let i = 0; i < data.length; i++) {
+            content += getEmployee(data[i]);
+        }
+        document.getElementById('customerList').innerHTML = content;
+    }
+
+    function getEmployee(row) {
+        return `            <tr>
+                <td>${row.id}</td>
+                <td>${row.name}</td>
+                <td>${row.birthDay}</td>
+                <td>${row.idCard}</td>
+                <td>${row.salary}</td>
+                <td>${row.phone}</td>
+                <td>${row.email}</td>
+                <td>${row.address}</td>
+                <td>
+                    <a id="editItem" type="button" class="btn btn-primary- editEmployee" href="${row.id}"
+                       data-toggle="modal" data-target="#modalEdit">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </a>
+                </td>
+                <td>
+                    <a id="deleteItem" type="button" class="btn btn-danger deleteCustomer" href="${row.id}"
+                       data-toggle="modal" data-target="#exampleModalCenter">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>`;
+    }
+
+    function saveEditEmployee() {
+        let id = $('#id').val();
+        let name = $('#name').val();
+        let position = $('#position').val();
+        let division = $('#division').val();
+        let educationDegree = $('#educationDegree').val();
+        let birthDay = $('#birthDay').val();
+        let idCard = $('#idCard').val();
+        let salary = $('#salary').val();
+        let phone = $('#phone').val();
+        let email = $('#email').val();
+        let address = $('#address').val();
+        let newEmployee = {
+            id: id,
+            name: name,
+            position:{
+                positionId:position
+            },
+            division:{
+                divisionId:division
+            },
+            educationDegree: {
+                eduDegreeId:educationDegree
+            },
+            birthDay : birthDay,
+            idCard:idCard,
+            salary:salary,
+            phone:phone,
+            email:email,
+            address:address
+        }
+        debugger
+        console.log(newEmployee)
+        console.log("AAA")
+        // goi ajax
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "PUT",
+            data: JSON.stringify(newEmployee),
+            //tên API
+            url: `/api/employee/update`,
+            //xử lý khi thành công
+            success: function(data){
+                debugger
+                successHandler(data)
+            }
+
+        });
+        //chặn sự kiện mặc định của thẻ
+        event.preventDefault();
+    }
 </script>

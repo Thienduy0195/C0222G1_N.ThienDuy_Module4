@@ -31,6 +31,12 @@ public class EmployeeRestController {
     @Autowired
     IEducationDegreeService degreeService;
 
+
+    @GetMapping("/list")
+    public ResponseEntity<Iterable<Employee>> showList() {
+        return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable("id") Integer id){
         Employee employee = this.employeeService.findById(id);
@@ -39,17 +45,6 @@ public class EmployeeRestController {
         }
         return new ResponseEntity<>(employee,  HttpStatus.OK);
     }
-
-    @GetMapping("/get-position")
-    public ResponseEntity<?> getPosition(){
-        List<Position> positionList = positionService.findAll();
-        return new ResponseEntity<>(positionList,  HttpStatus.OK);
-    }
-
-//    @GetMapping("/get-division")
-//
-//
-//    @GetMapping("/get-education")
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteEmployee(@PathVariable("id") Integer id){
@@ -61,7 +56,9 @@ public class EmployeeRestController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
-
-
+    @PutMapping("/update")
+    public ResponseEntity<List<Employee>> editEmployee(@RequestBody Employee employee) {
+        employeeService.save(employee);
+        return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
+    }
 }

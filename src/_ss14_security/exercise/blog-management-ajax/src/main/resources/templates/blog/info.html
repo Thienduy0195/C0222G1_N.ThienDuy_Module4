@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/blog/layout :: head"></head>
+<body>
+<h3>VIEW BLOG</h3>
+<p>
+    <a class="btn btn-primary" th:href="@{/blog}">
+        BACK TO BLOG
+    </a>
+</p>
+<div id="detail">
+    <table>
+        <tr>
+            <td>
+                <label>BLOG NAME:</label>
+            </td>
+            <td>
+                <label th:text="${blog.getBlogName()}"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>BLOG AUTHOR:</label>
+            </td>
+            <td>
+                <label th:text="${blog.getAuthor()}"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>BLOG DESCRIPTION:</label>
+            </td>
+            <td>
+                <label th:text="${blog.getBlogDescription()}"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>BLOG CONTENT:</label>
+            </td>
+            <td>
+                <label th:text="${blog.getContent()}"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>CREATE DATE:</label>
+            </td>
+            <td>
+                <label th:text="${blog.getCreateDay()}"></label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>CATEGORY:</label>
+            </td>
+            <td>
+                <label th:text="${blog.category.name}"></label>
+            </td>
+        </tr>
+    </table>
+</div>
+<footer th:replace="/blog/layout :: footer"></footer>
+</body>
+</html>

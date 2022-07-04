@@ -15,6 +15,9 @@ import java.util.List;
 public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
 
     @Query(value = "select * from employee where status=1", nativeQuery = true)
+    List<Employee> findAll();
+
+    @Query(value = "select * from employee where status=1", nativeQuery = true)
     Page<Employee> findAllPageable(Pageable pageable);
 
     @Modifying

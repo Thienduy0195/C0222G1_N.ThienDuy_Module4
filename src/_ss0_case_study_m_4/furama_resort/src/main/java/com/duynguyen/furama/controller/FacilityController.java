@@ -1,8 +1,6 @@
 package com.duynguyen.furama.controller;
 
-import com.duynguyen.furama.dto.customer_dto.CustomerDto;
 import com.duynguyen.furama.dto.service_dto.ServiceDto;
-import com.duynguyen.furama.model.customer.Customer;
 import com.duynguyen.furama.model.service.Service;
 import com.duynguyen.furama.service.facility.IFacilityService;
 import com.duynguyen.furama.service.facility.IRentTypeService;
@@ -67,17 +65,17 @@ public class FacilityController {
     public String showUpdateForm(@PathVariable Integer id, Model model) {
         Service service = iFacilityService.findById(id);
         ServiceDto serviceDto = new ServiceDto();
-        BeanUtils.copyProperties(service,serviceDto);
+        BeanUtils.copyProperties(service, serviceDto);
         model.addAttribute("rentTypeList", this.iRentTypeService.findAll());
         model.addAttribute("serviceTypeList", this.iServiceType.findAll());
-        model.addAttribute("serviceDto",serviceDto);
+        model.addAttribute("serviceDto", serviceDto);
         return "/facility/update-facility";
     }
 
     @PostMapping("/update")
     public String update(@ModelAttribute @Validated ServiceDto serviceDto,
                          BindingResult bindingResult,
-                         Model model){
+                         Model model) {
         Service service = iFacilityService.findById(serviceDto.getId());
         service.setServiceCode(null);
         iFacilityService.save(service);
@@ -96,8 +94,8 @@ public class FacilityController {
     }
 
     @PostMapping("/delete")
-    public String deleteFacility(@RequestParam Integer id){
+    public String deleteFacility(@RequestParam Integer id) {
         this.iFacilityService.deleteById(id);
-        return  "redirect:/facility";
+        return "redirect:/facility";
     }
 }

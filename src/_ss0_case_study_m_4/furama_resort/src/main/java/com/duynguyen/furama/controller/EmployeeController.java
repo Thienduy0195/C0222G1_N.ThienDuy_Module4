@@ -99,7 +99,31 @@ public class EmployeeController {
         return "employee/update-employee";
     }
 
-    @PostMapping("/update")
+//    @PostMapping("/update")
+//    public String update(@ModelAttribute @Validated EmployeeDto employeeDto,
+//                         BindingResult bindingResult,
+//                         Model model) {
+//        new EmployeeDto().validate(employeeDto, bindingResult);
+//        this.iEmployeeService.checkExists(employeeDto, bindingResult);
+//        if (bindingResult.hasFieldErrors()) {
+//            model.addAttribute("positionList", this.iPositionService.findAll());
+//            model.addAttribute("divisionList", this.iDivisionService.findAll());
+//            model.addAttribute("educationList", this.iEducationDegreeService.findAll());
+//            return "employee/update-employee";
+//        } else {
+//            Employee employee = new Employee();
+//            BeanUtils.copyProperties(employeeDto, employee);
+//            this.iEmployeeService.save(employee);
+//            return "redirect:/employee";
+//        }
+//    }
+
+//    @PostMapping("/update")
+//    public String update() {
+//            return "redirect:/employee";
+//    }
+
+        @PostMapping("/update")
     public String update(@ModelAttribute @Validated EmployeeDto employeeDto,
                          BindingResult bindingResult,
                          Model model) {
