@@ -2,6 +2,7 @@ package com.duynguyen.furama.dto.contract_dto;
 
 import com.duynguyen.furama.dto.customer_dto.AdvanceInfo;
 import com.duynguyen.furama.dto.customer_dto.BasicInfo;
+import com.duynguyen.furama.dto.customer_dto.Thrid;
 import com.duynguyen.furama.model.customer.Customer;
 import com.duynguyen.furama.model.employee.Employee;
 import com.duynguyen.furama.model.service.Service;
