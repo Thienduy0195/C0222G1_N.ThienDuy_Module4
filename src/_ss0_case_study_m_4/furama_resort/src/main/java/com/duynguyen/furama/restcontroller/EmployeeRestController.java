@@ -61,4 +61,11 @@ public class EmployeeRestController {
         employeeService.save(employee);
         return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
     }
+
+    @PostMapping("/save")
+    public ResponseEntity<List<Employee>> createEmployee(@RequestBody Employee employee) {
+        employee.setId(null);
+        employeeService.save(employee);
+        return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
+    }
 }

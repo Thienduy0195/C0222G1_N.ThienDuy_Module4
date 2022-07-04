@@ -46,13 +46,13 @@ public class EmployeeService implements IEmployeeService {
         // dang ky user cho employee
 //        AppUser appUser = this.appUserRepository.findByUsername(employee.getEmail());
 //        if(appUser == null){
-        if(employee.getId() == null){
-            User employeeUser = new User();
-            this.iUserRoleService.saveUser(employee, employeeUser);
-            Role userRole = this.iAppRoleService.findRole(1);
-            Role adminRole = this.iAppRoleService.findRole(2);
-            this.iUserRoleService.saveUserRole(employee, employeeUser, userRole, adminRole);
-        }
+//        if(employee.getId() == null){
+//            User employeeUser = new User();
+//            this.iUserRoleService.saveUser(employee, employeeUser);
+//            Role userRole = this.iAppRoleService.findRole(1);
+//            Role adminRole = this.iAppRoleService.findRole(2);
+//            this.iUserRoleService.saveUserRole(employee, employeeUser, userRole, adminRole);
+//        }
             employee.setStatus(1);
             this.iEmployeeRepository.save(employee);
     }
