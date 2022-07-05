@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -59,13 +60,27 @@ public class EmployeeRestController {
     @PutMapping("/update")
     public ResponseEntity<List<Employee>> editEmployee(@RequestBody Employee employee) {
         employeeService.save(employee);
-        return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
+        List<Employee> newList = new ArrayList<>();
+        for (int j = 0; j <10 ; j++) {
+            if (j==employeeService.findAll().size()){
+                break;
+            }
+            newList.add(employeeService.findAll().get(j));
+        }
+        return new ResponseEntity<>(newList, HttpStatus.OK);
     }
 
     @PostMapping("/save")
     public ResponseEntity<List<Employee>> createEmployee(@RequestBody Employee employee) {
         employee.setId(null);
         employeeService.save(employee);
-        return new ResponseEntity<>(employeeService.findAll(), HttpStatus.OK);
+        List<Employee> newList = new ArrayList<>();
+        for (int j = 0; j <10 ; j++) {
+            if (j==employeeService.findAll().size()){
+                break;
+            }
+            newList.add(employeeService.findAll().get(j));
+        }
+        return new ResponseEntity<>(newList, HttpStatus.OK);
     }
 }

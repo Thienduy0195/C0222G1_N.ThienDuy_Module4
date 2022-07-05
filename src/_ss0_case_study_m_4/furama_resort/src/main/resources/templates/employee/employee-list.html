@@ -121,7 +121,7 @@
                             <div class="modal-body" id="modalEdit-body">
                                 <input type="hidden" id="id"/>
                                 <div class="form-group">
-                                    <label for="position">CHOOSE POSITION:</label>
+                                    <label class="font-weight-bold" for="position">CHOOSE POSITION:</label>
                                     <select id="position" class="form-control border-primary">
                                         <option th:each="position: ${positionList}" th:value="${position.positionId}"
                                                 th:text="${position.positionName}">
@@ -129,7 +129,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="division">CHOOSE DIVISION:</label>
+                                    <label class="font-weight-bold" for="division">CHOOSE DIVISION:</label>
                                     <select id="division" class="form-control border-primary">
                                         <option th:each="division: ${divisionList}" th:value="${division.divisionId}"
                                                 th:text="${division.divisionName}">
@@ -137,7 +137,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="educationDegree">CHOOSE EDUCATION DEGREE:</label>
+                                    <label class="font-weight-bold" for="educationDegree">CHOOSE EDUCATION DEGREE:</label>
                                     <select id="educationDegree" class="form-control border-primary">
                                         <option th:each="education: ${educationList}"
                                                 th:value="${education.eduDegreeId}"
@@ -148,31 +148,31 @@
                                 <div class="form-group" >
                                     <table style="margin: 0 0; width: 100%" >
                                         <tr>
-                                            <td><label for="name">EMPLOYEE NAME</label></td>
+                                            <th><label for="name">EMPLOYEE NAME</label></th>
                                             <td><input type="text" id="name"/></td>
                                         </tr>
                                         <tr>
-                                            <td><label>EMPLOYEE BIRTHDAY</label></td>
+                                            <th><label>EMPLOYEE BIRTHDAY</label></th>
                                             <td><input type="date" id="birthDay"/></td>
                                         </tr>
                                         <tr>
-                                            <td><label>EMPLOYEE ID CARD</label></td>
+                                            <th><label>EMPLOYEE ID CARD</label></th>
                                             <td><input type="text" id="idCard"/></td>
                                         </tr>
                                         <tr>
-                                            <td><label>EMPLOYEE SALARY</label></td>
+                                            <th><label>EMPLOYEE SALARY</label></th>
                                             <td><input type="text" id="salary"/></td>
                                         </tr>
                                         <tr>
-                                            <td><label>EMPLOYEE PHONE</label></td>
+                                            <th><label>EMPLOYEE PHONE</label></th>
                                             <td><input type="text" id="phone"/></td>
                                         </tr>
                                         <tr>
-                                            <td><label>EMPLOYEE EMAIL</label></td>
+                                            <th><label>EMPLOYEE EMAIL</label></th>
                                             <td><input type="text" id="email"/></td>
                                         </tr>
                                         <tr>
-                                            <td><label>EMPLOYEE ADDRESS</label></td>
+                                            <th><label>EMPLOYEE ADDRESS</label></th>
                                             <td><input type="text" id="address"/></td>
                                         </tr>
                                     </table>
@@ -190,6 +190,32 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal Completed -->
+    <div class="modal fade" id="success" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successCreate">CREATING COMPLETELY!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="create" method="post" th:action="@{/employee/delete}">
+                    <div class="modal-body">
+                        <div id="name_create"></div>
+                        <div id="email_create"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+<!--                        <button type="submit" class="btn btn-danger delete">YES</button>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- Modal Delete -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
@@ -235,7 +261,7 @@
                     <div class="modal-body" id="">
                         <input type="hidden" id="id1"/>
                         <div class="form-group">
-                            <label for="position1">CHOOSE POSITION:</label>
+                            <label class="font-weight-bold" for="position1">CHOOSE POSITION:</label>
                             <select id="position1" class="form-control border-primary">
                                 <option th:each="position: ${positionList}" th:value="${position.positionId}"
                                         th:text="${position.positionName}">
@@ -243,7 +269,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="division1">CHOOSE DIVISION:</label>
+                            <label class="font-weight-bold" for="division1">CHOOSE DIVISION:</label>
                             <select id="division1" class="form-control border-primary">
                                 <option th:each="division: ${divisionList}" th:value="${division.divisionId}"
                                         th:text="${division.divisionName}">
@@ -251,7 +277,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="educationDegree1">CHOOSE EDUCATION DEGREE:</label>
+                            <label class="font-weight-bold" for="educationDegree1">CHOOSE EDUCATION DEGREE:</label>
                             <select id="educationDegree1" class="form-control border-primary">
                                 <option th:each="education: ${educationList}"
                                         th:value="${education.eduDegreeId}"
@@ -262,31 +288,31 @@
                         <div class="form-group" >
                             <table style="margin: 0 0; width: 100%" >
                                 <tr>
-                                    <td><label for="name1">EMPLOYEE NAME</label></td>
+                                    <th><label for="name1">EMPLOYEE NAME</label></th>
                                     <td><input type="text" id="name1"/></td>
                                 </tr>
                                 <tr>
-                                    <td><label>EMPLOYEE BIRTHDAY</label></td>
+                                    <th><label>EMPLOYEE BIRTHDAY</label></th>
                                     <td><input type="date" id="birthDay1"/></td>
                                 </tr>
                                 <tr>
-                                    <td><label>EMPLOYEE ID CARD</label></td>
+                                    <th><label>EMPLOYEE ID CARD</label></th>
                                     <td><input type="text" id="idCard1"/></td>
                                 </tr>
                                 <tr>
-                                    <td><label>EMPLOYEE SALARY</label></td>
+                                    <th><label>EMPLOYEE SALARY</label></th>
                                     <td><input type="text" id="salary1"/></td>
                                 </tr>
                                 <tr>
-                                    <td><label>EMPLOYEE PHONE</label></td>
+                                    <th><label>EMPLOYEE PHONE</label></th>
                                     <td><input type="text" id="phone1"/></td>
                                 </tr>
                                 <tr>
-                                    <td><label>EMPLOYEE EMAIL</label></td>
+                                    <th><label>EMPLOYEE EMAIL</label></th>
                                     <td><input type="text" id="email1"/></td>
                                 </tr>
                                 <tr>
-                                    <td><label>EMPLOYEE ADDRESS</label></td>
+                                    <th><label>EMPLOYEE ADDRESS</label></th>
                                     <td><input type="text" id="address1"/></td>
                                 </tr>
                             </table>
@@ -304,6 +330,7 @@
     </div>
 </div>
 </div>
+
 
 <a id="createItem" type="button" class="btn btn-success createEmployee"
    data-toggle="modal" data-target="#modalCreate">
@@ -455,6 +482,7 @@
             url: `/api/employee/update`,
             //xử lý khi thành công
             success: function(data){
+                console.log(data.length)
                 debugger
                 successHandler(data)
             }
@@ -509,6 +537,10 @@
             //xử lý khi thành công
             success: function(data){
                 debugger
+                let createName = $('#name1').val();
+                console.log(createName)
+                document.getElementById("name_create").innerHTML = "Creating employee " + '<span style="color: blue">' + createName + '</span>' + " successfully!!";
+                $('#success').modal("show");
                 successHandler(data)
                 document.getElementById("id1").value = null;
                 document.getElementById("name1").value = null;
